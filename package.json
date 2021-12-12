@@ -1,0 +1,13 @@
+{
+  "name": "notion-api-explorer",
+  "version": "1.0.0",
+  "description": "Notion API explorer and examples",
+  "main": "index.js",
+  "author": "Benjamin Borowski <ben@weareokidoki.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@notionhq/client": "^0.4.9",
+    "dotenv": "^10.0.0",
+    "yargs": "^17.3.0"
+  }
+}
