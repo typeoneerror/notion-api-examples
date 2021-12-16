@@ -3,6 +3,8 @@ const {
   yargs,
 } = require('../../shared');
 
+const { log } = require('../../shared/utils');
+
 const pageId = '25f49fa5f4c7410e80b544bb0714856b';
 const argv = yargs.default({ pageId }).argv;
 
@@ -11,5 +13,5 @@ const argv = yargs.default({ pageId }).argv;
     page_id: argv.pageId,
   });
 
-  console.log(page);
+  log(page);
 })();

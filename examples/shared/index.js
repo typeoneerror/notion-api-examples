@@ -4,9 +4,8 @@ const yargs = require('yargs/yargs')(process.argv.slice(2));
 
 dotenv.config();
 
-const notion = new Client({
-  auth: process.env.NOTION_API_TOKEN,
-});
+const auth = yargs.argv.notionApiToken || process.env.NOTION_API_TOKEN;
+const notion = new Client({ auth });
 
 module.exports = {
   notion,
