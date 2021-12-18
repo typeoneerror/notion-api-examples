@@ -1,11 +1,7 @@
-const {
-  notion,
-  yargs,
- } = require('../../shared');
+const { notion, yargs } = require('../../shared');
 
 const props = require('../shared/props');
 const { log } = require('../../shared/utils');
-
 
 const databaseId = '7b71eb300cbf4f4998f8c2208d733ee2';
 const argv = yargs.default({ databaseId }).argv;

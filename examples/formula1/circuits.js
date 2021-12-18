@@ -1,13 +1,7 @@
 const orderBy = require('lodash/orderBy');
 const { RateLimit } = require('async-sema');
 
-const {
-  dashboardId,
-  ergast,
-  log,
-  notion,
-  props,
-} = require('./shared');
+const { dashboardId, ergast, log, notion, props } = require('./shared');
 
 const DB_TITLE = 'F1 Circuits';
 
@@ -15,7 +9,7 @@ const DB_TITLE = 'F1 Circuits';
 // limit our requests to 1 per 2 seconds. In real scenario, we'd want to push
 // these to some sort of background queuing system and allow them to be retried
 // when they fail.
-const limit = RateLimit(1, { timeUnit: 2000, uniformDistribution: true })
+const limit = RateLimit(1, { timeUnit: 2000, uniformDistribution: true });
 
 async function createCircuitsDatabase() {
   const response = await notion.search({
@@ -37,7 +31,7 @@ async function createCircuitsDatabase() {
     Longitude: { number: {} },
     URL: { url: {} },
     ...props.timestamps(),
-  }
+  };
 
   console.log(`Creating "${DB_TITLE}" database`);
 
@@ -53,7 +47,9 @@ async function createCircuitsDatabase() {
 }
 
 async function fetchCircuits() {
-  const circuits = await ergast('circuits', 'CircuitTable.Circuits', { limit: 100 });
+  const circuits = await ergast('circuits', 'CircuitTable.Circuits', {
+    limit: 100,
+  });
 
   return orderBy(circuits, 'circuitName', 'desc');
 }
@@ -62,12 +58,7 @@ async function createCircuit(database, circuit) {
   process.stdout.write('.');
 
   const {
-    Location: {
-      country,
-      lat,
-      locality,
-      long,
-    },
+    Location: { country, lat, locality, long },
   } = circuit;
 
   const properties = {

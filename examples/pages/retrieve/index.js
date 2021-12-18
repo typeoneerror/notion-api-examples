@@ -1,7 +1,4 @@
-const {
-  notion,
-  yargs,
-} = require('../../shared');
+const { notion, yargs } = require('../../shared');
 
 const { log } = require('../../shared/utils');
 

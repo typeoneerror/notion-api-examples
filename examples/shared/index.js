@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const { Client } = require("@notionhq/client");
+const { Client } = require('@notionhq/client');
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 
 dotenv.config();
@@ -10,4 +10,4 @@ const notion = new Client({ auth });
 module.exports = {
   notion,
   yargs,
-}
+};

@@ -15,7 +15,7 @@ function icon(emoji) {
   return {
     type: 'emoji',
     emoji,
-  }
+  };
 }
 
 function number(number) {
@@ -49,16 +49,18 @@ function timestamps() {
   return {
     'Created At': { created_time: {} },
     'Updated At': { last_edited_time: {} },
-  }
+  };
 }
 
 function text(content) {
-  return [{
-    type: 'text',
-    text: {
-      content,
+  return [
+    {
+      type: 'text',
+      text: {
+        content,
+      },
     },
-  }];
+  ];
 }
 
 function title(content) {

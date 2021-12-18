@@ -1,7 +1,4 @@
-const {
-  notion,
-  yargs,
-} = require('../../shared');
+const { notion, yargs } = require('../../shared');
 
 const { log } = require('../../shared/utils');
 const orderBy = require('lodash/orderBy');
@@ -16,7 +13,7 @@ const argv = yargs.default({
     query: argv.query,
     filter: {
       property: 'object',
-      value: 'database'
+      value: 'database',
     },
     page_size: argv.pageSize,
   });
