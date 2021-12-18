@@ -1,5 +1,4 @@
 const { notion, yargs } = require('../../shared');
-
 const props = require('../shared/props');
 const { log } = require('../../shared/utils');
 

@@ -47,6 +47,8 @@ async function createCircuitsDatabase() {
 }
 
 async function fetchCircuits() {
+  console.log('Fetching circuits from ergast API');
+
   const circuits = await ergast('circuits', 'CircuitTable.Circuits', {
     limit: 100,
   });

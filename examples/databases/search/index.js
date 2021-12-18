@@ -1,5 +1,4 @@
 const { notion, yargs } = require('../../shared');
-
 const { log } = require('../../shared/utils');
 const orderBy = require('lodash/orderBy');
 
