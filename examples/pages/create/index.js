@@ -1,5 +1,6 @@
 const { notion, yargs } = require('../../shared');
 const props = require('../../shared/props');
+const titledDate = require('../../shared/titled-date');
 const { log } = require('../../shared/utils');
 
 const databaseId = '7b71eb300cbf4f4998f8c2208d733ee2';
@@ -10,10 +11,7 @@ const params = {
     database_id: argv.databaseId,
   },
   icon: props.icon('👨‍🚒'),
-  properties: {
-    Name: props.title('Duty Crew'),
-    Date: props.date('2021-12-11'),
-  },
+  properties: titledDate('Duty Crew'),
 };
 
 (async () => {
