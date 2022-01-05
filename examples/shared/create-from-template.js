@@ -1,10 +1,13 @@
 const { notion } = require('./index');
 const _ = require('lodash');
 
+// Properties we do not want to try to copy from template
+const INVALID_PROP_TYPES = ['formula', 'rollup', 'title'];
+
 function getTemplateProperties(properties) {
   return _.reduce(
     _.pickBy(properties, (prop) => {
-      return prop.type !== 'title' && !_.isEmpty(prop[prop.type]);
+      return !INVALID_PROP_TYPES.includes(prop.type) && !_.isEmpty(prop[prop.type]);
     }),
     (props, prop, name) => {
       props[name] = _.pick(prop, [prop.type]);
