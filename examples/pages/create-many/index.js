@@ -33,7 +33,7 @@ async function createPage(template, date) {
 
   const properties = titledDate(entryPrefix, date);
 
-  return await createFromTemplate(argv.templateId, properties);
+  return await createFromTemplate(template, properties);
 }
 
 async function createPages(template, dates) {
