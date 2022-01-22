@@ -32,4 +32,7 @@ jobs:
       - name: Create Wordle game board
         env:
           NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
-        run: node examples/wordle/create-game/index.js
+        run: |
+          node examples/wordle/create-game/index.js \
+            --words-db-id=6e9aa51b6e284a7280506b595f91bd9c \
+            --games-db-id=9e0d31a2f1bb41a1992b4e6f7f122a5f
