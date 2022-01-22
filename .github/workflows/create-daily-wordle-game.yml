@@ -1,0 +1,35 @@
+name: Create Daily Wordle Game
+
+on:
+  push:
+    branches:
+      - create-wordle-game-action
+  schedule:
+    # 08:05 UTC is just after midnight in Pacfic Time
+    - cron: '5 8 * * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: lts/erbium
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create Wordle game board
+        env:
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+        run: node examples/wordle/create-game/index.js
