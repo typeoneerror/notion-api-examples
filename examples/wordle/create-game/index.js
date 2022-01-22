@@ -1,3 +1,4 @@
+const { formatInTimeZone } = require('date-fns-tz');
 const { notion, yargs } = require('../../shared');
 const words = require('./words');
 
@@ -32,10 +33,11 @@ const randomWord = words[Math.floor(Math.random() * words.length)];
     throw new Error(`"${randomWord}" could not be found in the Wordle Words database`);
   }
 
-  let date = new Date();
-
-  const parts = date.toDateString().split(' ').slice(1);
-  const dateTitle = `${parts[0]} ${parts[1]}, ${parts[2]}`;
+  // Use date-fns to format our dates. Intl API is a nightmare.
+  const date = new Date();
+  const timeZone = 'America/Los_Angeles';
+  const dateTitle = formatInTimeZone(date, timeZone, 'MMM do, yyyy');
+  const dateValue = formatInTimeZone(date, timeZone, 'yyyy-MM-dd');
 
   const params = {
     parent: {
@@ -58,7 +60,7 @@ const randomWord = words[Math.floor(Math.random() * words.length)];
       },
       Date: {
         date: {
-          start: date.toISOString().split('T')[0],
+          start: dateValue,
           time_zone: null,
         },
       },
