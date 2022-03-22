@@ -23,7 +23,7 @@ const randomWord = words[Math.floor(Math.random() * words.length)];
     database_id: argv.wordsDbId,
     filter: {
       property: 'Word',
-      text: {
+      title: {
         equals: randomWord,
       },
     },
