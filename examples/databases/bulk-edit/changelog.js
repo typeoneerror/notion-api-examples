@@ -12,6 +12,7 @@ async function editPage(page) {
 
   let {
     Lesson: { title },
+    Date: { date },
   } = page.properties;
 
   const [dateMentions, otherTitles] = _.partition(
@@ -19,19 +20,25 @@ async function editPage(page) {
     (part) => part.type === 'mention' && part.mention.type === 'date'
   );
 
-  const [{ mention: date }] = dateMentions;
+  if (!(date || _.isEmpty(dateMentions))) {
+    [{ mention: date }] = dateMentions;
+  } else {
+    date = { date };
+  }
 
   const lessonTitles = _.reject(otherTitles, ({ type, plain_text: plainText }) => {
     return type === 'text' && _.isEmpty(plainText.replace(/\s/g, ''));
   });
 
+  const properties = { Lesson: { title: lessonTitles } };
+  if (date) {
+    properties.Date = date;
+  }
+
   const args = {
     page_id: page.id,
     icon: iconProp('🆕'),
-    properties: {
-      Lesson: { title: lessonTitles },
-      Date: date,
-    },
+    properties,
   };
 
   return await notion.pages.update(args);
