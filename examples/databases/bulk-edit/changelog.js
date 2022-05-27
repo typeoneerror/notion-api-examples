@@ -1,3 +1,9 @@
+/**
+ * Arguments:
+ *
+ * --database-id: ID of the database to create in
+ */
+
 const _ = require('lodash');
 const { notion, yargs } = require('../../shared');
 const { fetchAllPages, performWithAll } = require('../../shared/fetch-pages');

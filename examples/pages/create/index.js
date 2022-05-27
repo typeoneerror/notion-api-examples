@@ -1,3 +1,9 @@
+/**
+ * Arguments:
+ *
+ * --database-id: ID of the database to create in
+ */
+
 const { notion, yargs } = require('../../shared');
 const props = require('../../shared/props');
 const titledDate = require('../../shared/titled-date');

@@ -1,3 +1,10 @@
+/**
+ * Arguments:
+ *
+ * --page-size: 0-100, number of pages to fetch
+ * --start-cursor: where to start in the results
+ */
+
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 

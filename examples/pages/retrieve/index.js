@@ -1,3 +1,9 @@
+/**
+ * Arguments:
+ *
+ * --page-id: ID of the page to fetch
+ */
+
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 

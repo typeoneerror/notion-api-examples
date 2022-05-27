@@ -10,6 +10,7 @@
  * 2. Find the corresponding Spends relation (by ID) and relating it to the Trends entry with the same date.
  * 3. Re-titles the Trend page using the Date property.
  */
+
 const { format, parse } = require('date-fns');
 const { notion } = require('../../shared');
 const { fetchAllPages, fetchPages, performWithAll } = require('../../shared/fetch-pages');
