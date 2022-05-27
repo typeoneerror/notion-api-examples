@@ -1,3 +1,12 @@
+/**
+ * Search a database by query.
+ *
+ * Arguments:
+ *
+ * --query: search string
+ * --page-size: how many to fetch per page
+ */
+
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 const orderBy = require('lodash/orderBy');

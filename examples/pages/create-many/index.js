@@ -1,3 +1,10 @@
+/**
+ * Arguments:
+ *
+ * --template-id: ID of the template to create from
+ * --rps-unit: number of ms per 1 request
+ */
+
 const { RateLimit } = require('async-sema');
 const { notion, yargs } = require('../../shared');
 const { createFromTemplate } = require('../../shared/create-from-template');

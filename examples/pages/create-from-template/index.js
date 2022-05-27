@@ -1,3 +1,9 @@
+/**
+ * Arguments:
+ *
+ * --template-id: ID of the template to create from
+ */
+
 const { yargs } = require('../../shared');
 const { createFromTemplate } = require('../../shared/create-from-template');
 const titledDate = require('../../shared/titled-date');

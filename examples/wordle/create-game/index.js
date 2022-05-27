@@ -1,3 +1,14 @@
+/**
+ * Creates a Wordle game instance.
+ *
+ * @see https://mariepoulin.gumroad.com/l/wordle-in-notion
+ *
+ * Arguments:
+ *
+ * --words-db-id: ID of the Wordle Words database
+ * --games-db-id: ID of the Wordle Games database
+ */
+
 const { formatInTimeZone } = require('date-fns-tz');
 const { notion, yargs } = require('../../shared');
 const words = require('./words');

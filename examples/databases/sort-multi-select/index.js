@@ -1,3 +1,13 @@
+/**
+ * Sort a multi-select's options alphabetically.
+ *
+ * Arguments:
+ *
+ * --database-id: ID of the database to create in
+ * --sort-prop: name of multi-select to sort
+ * --[no-]case-sensitive: whether to sort ABCabc (default or --case-sensitive) or AaBbCc (--no-case-sensitive)
+ */
+
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 const _ = require('lodash');

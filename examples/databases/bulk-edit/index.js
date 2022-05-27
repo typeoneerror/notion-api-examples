@@ -4,6 +4,13 @@
  * the Page, and apply the corresponding "Image" or "Video" as the Page's "Type"
  * property which is a Select field.
  */
+
+/**
+ * Arguments:
+ *
+ * --database-id: ID of the database to edit pages in
+ */
+
 const { notion, yargs } = require('../../shared');
 const { fetchAllPages, fetchPages, performWithAll } = require('../../shared/fetch-pages');
 
@@ -57,7 +64,7 @@ async function editPage(page) {
 }
 
 (async () => {
-  const pages = await fetchAllPages(databaseId, {
+  const pages = await fetchAllPages(argv.databaseId, {
     filter: {
       or: [
         {

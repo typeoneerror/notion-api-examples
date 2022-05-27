@@ -1,3 +1,9 @@
+/**
+ * Arguments:
+ *
+ * --user-id: ID of the user to retrieve
+ */
+
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 
