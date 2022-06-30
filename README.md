@@ -51,3 +51,7 @@ node examples/databases/sort-multi-select/index.js --database-id=DATABASE_ID --s
 I will add comments to the top of each script indicating parameters that can be specified (WIP), but the following are always available to all scripts:
 
 - `--notion-api-token` overrides the var `NOTION_API_TOKEN` if specified in .env file. Must be provided for all scripts if not set in .env file.
+
+## Caveats
+
+There is very little error handling in these examples. Mostly because I want to fail hard and see the errors. So you will see very few `try...catch` statements throughout. You will want to handle errors gracefully in real-world scenarios.
