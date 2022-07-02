@@ -1,17 +1,16 @@
 /**
  * List Notion Users
  *
- * --count:        0-100, number of users to fetch
- * --start-index:  where to start in the results
- * --email:        filter user by email
- * --[no-]sort:    sort the results (funky when paginating)
+ * --count:       0-100, number of Users to fetch
+ * --start-index: Where to start in the results
+ * --email, -e:   Filter User by email
+ * --[no-]sort:   Sort the results (funky when paginating)
  */
 
 const _ = require('lodash');
 const { scim, yargs } = require('../../shared/scim');
-const { log } = require('../../shared/utils');
 
-const argv = yargs.boolean('sort').default({
+const argv = yargs.boolean('sort').option('e', { alias: 'email', type: 'string' }).default({
   count: 100,
   startIndex: 1,
 }).argv;
@@ -55,7 +54,7 @@ const argv = yargs.boolean('sort').default({
       users = _.orderBy(users, 'email');
     }
 
-    log(users);
+    console.log(users);
   } catch (e) {
     console.log(e);
   }
