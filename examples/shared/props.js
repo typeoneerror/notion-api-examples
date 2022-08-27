@@ -52,12 +52,13 @@ function timestamps() {
   };
 }
 
-function text(content) {
+function text(content, link = null) {
   return [
     {
       type: 'text',
       text: {
         content,
+        link,
       },
     },
   ];
