@@ -109,10 +109,10 @@ module.exports = {
   getPropertySchema,
   icon,
   number,
+  pageTitle,
   richText,
   select,
   timestamps,
   text,
-  title,
   url,
 };
