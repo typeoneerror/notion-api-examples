@@ -4,10 +4,10 @@ const _ = require('lodash');
 // Properties we do not want to try to copy from template
 const INVALID_PROP_TYPES = ['formula', 'rollup', 'title'];
 
-function getTemplateProperties(properties) {
+function getTemplateProperties(properties, invalid_types = INVALID_PROP_TYPES) {
   return _.reduce(
     _.pickBy(properties, (prop) => {
-      return !INVALID_PROP_TYPES.includes(prop.type) && !_.isEmpty(prop[prop.type]);
+      return !invalid_types.includes(prop.type) && !_.isEmpty(prop[prop.type]);
     }),
     (props, prop, name) => {
       props[name] = _.pick(prop, [prop.type]);

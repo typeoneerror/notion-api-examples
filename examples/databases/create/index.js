@@ -34,7 +34,7 @@ const params = {
     page_id: argv.parentId,
   },
   icon: props.icon('📀'),
-  title: props.text(argv.title),
+  title: [props.text(argv.title)],
   properties,
 };
 

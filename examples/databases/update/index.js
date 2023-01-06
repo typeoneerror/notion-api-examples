@@ -31,7 +31,7 @@ const properties = {
 const params = {
   database_id: argv.databaseId,
   icon: props.icon('💽'),
-  title: props.text(argv.title),
+  title: [props.text(argv.title)],
   properties,
 };
 

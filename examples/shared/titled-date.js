@@ -13,7 +13,7 @@ function titledDate(titlePrefix, date = new Date(), titleProp = 'Name', dateProp
   }
 
   return {
-    [titleProp]: props.title(`${titlePrefix}: ${dateTitle}`),
+    [titleProp]: props.pageTitle(`${titlePrefix}: ${dateTitle}`),
     [dateProp]: props.date(date),
   };
 }

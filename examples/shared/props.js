@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 function date(start = new Date(), end = null, time_zone = null) {
   const date = {
     start,
@@ -24,16 +26,15 @@ function number(number) {
   };
 }
 
-function richText(content) {
+function pageTitle(content) {
   return {
-    rich_text: [
-      {
-        type: 'text',
-        text: {
-          content,
-        },
-      },
-    ],
+    title: [text(content)],
+  };
+}
+
+function richText(content, link = null) {
+  return {
+    rich_text: [text(content, link)],
   };
 }
 
@@ -53,20 +54,12 @@ function timestamps() {
 }
 
 function text(content, link = null) {
-  return [
-    {
-      type: 'text',
-      text: {
-        content,
-        link,
-      },
-    },
-  ];
-}
-
-function title(content) {
   return {
-    title: text(content),
+    type: 'text',
+    text: {
+      content,
+      link,
+    },
   };
 }
 
@@ -76,8 +69,44 @@ function url(url) {
   };
 }
 
+/**
+ * From an existing database, create a schema that can be
+ * used to create a new database from the source database.
+ */
+function getPropertySchema(properties, omitKeys = ['id']) {
+  // Cannot create Status with API yet :(
+  // Other API limitations include the fact that the database creation
+  // end point does not observe the order you supply the properties. They
+  // will always be alphabetical after creation. Yet returning the properties
+  // in the API will give you neither the order present in the app NOR
+  // alphabetical, so that's fun.
+  //
+  // FIXME: remove status omission when API supports
+  return _.pickBy(omitProps(properties, omitKeys), (prop) => prop.type !== 'status');
+}
+
+/**
+ * Recursively remove properties by key.
+ */
+function omitProps(properties, keys = 'id') {
+  keys = _.keyBy(Array.isArray(keys) ? keys : [keys]);
+
+  function omit(props) {
+    return _.transform(props, function (result, value, key) {
+      if (key in keys) {
+        return;
+      }
+
+      result[key] = _.isObject(value) ? omit(value) : value;
+    });
+  }
+
+  return omit(properties);
+}
+
 module.exports = {
   date,
+  getPropertySchema,
   icon,
   number,
   richText,

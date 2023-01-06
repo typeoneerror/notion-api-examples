@@ -41,7 +41,7 @@ async function createCircuitsDatabase() {
       page_id: dashboardId,
     },
     icon: props.icon('🛤️'),
-    title: props.text(DB_TITLE),
+    title: [props.text(DB_TITLE)],
     properties,
   });
 }
@@ -64,7 +64,7 @@ async function createCircuit(database, circuit) {
   } = circuit;
 
   const properties = {
-    'Circuit Name': props.title(circuit.circuitName),
+    'Circuit Name': props.pageTitle(circuit.circuitName),
     'Circuit Id': props.richText(circuit.circuitId),
     Locality: props.select(locality),
     Country: props.select(country),
