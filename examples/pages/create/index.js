@@ -1,23 +1,27 @@
 /**
+ * Create a page inside another page
+ *
  * Arguments:
  *
- * --database-id: ID of the database to create in
+ * --page-id: ID of the parent page to create the page inside
  */
 
 const { notion, yargs } = require('../../shared');
 const props = require('../../shared/props');
-const titledDate = require('../../shared/titled-date');
 const { log } = require('../../shared/utils');
 
-const databaseId = '7b71eb300cbf4f4998f8c2208d733ee2';
-const argv = yargs.default({ databaseId }).argv;
+const pageId = '6027a8c8749a4eb9a9bc9bc2714c0d08';
+const argv = yargs.default({ pageId }).argv;
 
 const params = {
   parent: {
-    database_id: argv.databaseId,
+    type: 'page_id',
+    page_id: argv.pageId,
   },
-  icon: props.icon('👨‍🚒'),
-  properties: titledDate('Duty Crew'),
+  icon: props.icon('📄'),
+  properties: {
+    title: props.pageTitle('Hello, world!'),
+  },
 };
 
 (async () => {
