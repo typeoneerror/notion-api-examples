@@ -3,6 +3,8 @@
  *
  * This example updates a formula, renames the database, and switches an icon.
  *
+ * Works great when used with the database created with the ../create script!
+ *
  * Arguments:
  *
  * --database-id: ID of the database to update
@@ -14,13 +16,13 @@ const { notion, yargs } = require('../../shared');
 const props = require('../../shared/props');
 const { log } = require('../../shared/utils');
 
-const databaseId = '6ecfa7cbd6f44298b74147e5adf98082';
+const databaseId = '46956428bdf547bc8fc40263d854dabc';
 const title = 'Updated Database Name';
-const propId = 'F%5D%5CZ';
+const propId = 'f%5Csj';
 const argv = yargs.default({ databaseId, propId, title }).argv;
 
 const properties = {
-  [propId]: {
+  [argv.propId]: {
     name: 'X * Y',
     formula: {
       expression: 'prop("X") * prop("Y")',
