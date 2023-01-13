@@ -11,7 +11,7 @@ const { createFromTemplate } = require('../../shared/create-from-template');
 const titledDate = require('../../shared/titled-date');
 const { log } = require('../../shared/utils');
 
-const templateId = 'da29caf7fb84440f80f2a0ed9804b6e7';
+const templateId = '21d0fdf87ed64a938cd4d53245eea43e';
 const rpsUnit = 2000; // 1 request per 2000ms
 const argv = yargs.default({
   rpsUnit,
@@ -26,8 +26,8 @@ const limit = RateLimit(1, {
   uniformDistribution: true,
 });
 
-const startDate = new Date(2022, 0, 1);
-const endDate = new Date(2022, 11, 31);
+const startDate = new Date(2023, 0, 1);
+const endDate = new Date(2023, 0, 7);
 const dates = [];
 const entryPrefix = 'Journal';
 
