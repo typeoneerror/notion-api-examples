@@ -13,10 +13,17 @@ function date(start = new Date(), end = null, time_zone = null) {
   return { date };
 }
 
-function icon(emoji) {
+function emoji(name) {
   return {
     type: 'emoji',
-    emoji,
+    emoji: name,
+  };
+}
+
+function icon(name, color = 'gray') {
+  return {
+    type: 'external',
+    external: { url: `https://www.notion.so/icons/${name}_${color}.svg` },
   };
 }
 
@@ -106,6 +113,7 @@ function omitProps(properties, keys = 'id') {
 
 module.exports = {
   date,
+  emoji,
   getPropertySchema,
   icon,
   number,

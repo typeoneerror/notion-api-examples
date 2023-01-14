@@ -40,7 +40,7 @@ async function createCircuitsDatabase() {
       type: 'page_id',
       page_id: dashboardId,
     },
-    icon: props.icon('🛤️'),
+    icon: props.emoji('🛤️'),
     title: [props.text(DB_TITLE)],
     properties,
   });

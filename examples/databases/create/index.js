@@ -33,7 +33,7 @@ const params = {
     type: 'page_id',
     page_id: argv.parentId,
   },
-  icon: props.icon('📀'),
+  icon: props.emoji('📀'),
   title: [props.text(argv.title)],
   properties,
 };

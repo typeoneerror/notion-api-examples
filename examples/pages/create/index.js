@@ -18,7 +18,7 @@ const params = {
     type: 'page_id',
     page_id: argv.pageId,
   },
-  icon: props.icon('📄'),
+  icon: props.emoji('📄'),
   properties: {
     title: props.pageTitle('Hello, world!'),
   },

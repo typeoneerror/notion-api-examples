@@ -24,7 +24,7 @@ const params = {
     type: 'database_id',
     database_id: argv.databaseId,
   },
-  icon: props.icon('👨‍🚒'),
+  icon: props.emoji('👨‍🚒'),
   properties,
 };
 
