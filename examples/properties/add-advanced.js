@@ -3,7 +3,7 @@
  *
  * Arguments:
  *
- * --database-id: ID of the property to fetch
+ * --database-id: ID of the property to add the properties to
  * --[no-]watched-by: whether to create a "Watched by" Person property
  *                    (default or --watched-by) or not (--no-watched-by)
  */
@@ -15,7 +15,7 @@ const databaseId = '5bdcff6258b246788536d5c642b2fe55';
 const argv = yargs.boolean('watched-by').default({ databaseId, watchedBy: true }).argv;
 
 (async () => {
-  let properties = argv.watchedBy ? { 'Watched by': { person: {} } } : {};
+  let properties = argv.watchedBy ? { 'Watched by': { people: {} } } : {};
 
   properties = {
     ...properties,
@@ -29,8 +29,6 @@ const argv = yargs.boolean('watched-by').default({ databaseId, watchedBy: true }
     database_id: argv.databaseId,
     properties,
   };
-
-  await notion.databases.retrieve({ database_id: argv.databaseId });
 
   const database = await notion.databases.update(params);
 
