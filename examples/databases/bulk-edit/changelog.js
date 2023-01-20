@@ -7,7 +7,7 @@
 const _ = require('lodash');
 const { notion, yargs } = require('../../shared');
 const { fetchAllPages, performWithAll } = require('../../shared/fetch-pages');
-const { icon: iconProp } = require('../../shared/props');
+const { emoji } = require('../../shared/props');
 const { log } = require('../../shared/utils');
 
 const databaseId = 'e8a07b67d28a432fbd9029f18f3a27b7';
@@ -43,7 +43,7 @@ async function editPage(page) {
 
   const args = {
     page_id: page.id,
-    icon: iconProp('🆕'),
+    icon: emoji('🆕'),
     properties,
   };
 

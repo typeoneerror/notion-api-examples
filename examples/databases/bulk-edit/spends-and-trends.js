@@ -14,7 +14,7 @@
 const { format, parse } = require('date-fns');
 const { notion } = require('../../shared');
 const { fetchAllPages, fetchPages, performWithAll } = require('../../shared/fetch-pages');
-const { icon: iconProp } = require('../../shared/props');
+const { emoji } = require('../../shared/props');
 
 const spendsDbId = '029a7e3e6b734169a0e973493fc0dbf1';
 const trendsDbId = 'e7cfab7d65394f17904b7123ec3bfe1f';
@@ -50,7 +50,7 @@ async function editPage(page) {
 
   return await notion.pages.update({
     page_id: page.id,
-    icon: iconProp('📈'),
+    icon: emoji('📈'),
     properties: {
       ID: {
         title: [
