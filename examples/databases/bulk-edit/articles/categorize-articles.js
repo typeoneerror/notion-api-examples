@@ -1,8 +1,7 @@
 const _ = require('lodash');
-const { getPageBy, log, getWordPressPost, notion, wp, yargs } = require('./shared');
+const { BASE_URL, getPageBy, log, getWordPressPost, notion, wp, yargs } = require('./shared');
 const { fetchAllPages, performWithAll } = require('../../../shared/fetch-pages');
 const props = require('../../../shared/props');
-const { ca } = require('date-fns/locale');
 
 const articlesDbId = 'bb4d4d5c799f43b9b5a21e182fc39059';
 const categoriesDbId = '3fb1239524a94e7fac5403af482bae8a';
@@ -64,7 +63,7 @@ async function editPage(page) {
         {
           property: 'URL',
           url: {
-            starts_with: 'https://www.epicgardening.com',
+            starts_with: BASE_URL,
           },
         },
         {
