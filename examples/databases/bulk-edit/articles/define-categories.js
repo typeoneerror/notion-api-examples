@@ -1,3 +1,7 @@
+/**
+ * Create categories mapped from the WordPress website.
+ */
+
 const { getPageBy, notion, wp, yargs } = require('./shared');
 const { performWithAll } = require('../../../shared/fetch-pages');
 const props = require('../../../shared/props');

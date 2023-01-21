@@ -1,3 +1,8 @@
+/**
+ * Loop through all articles, fetch category info from WordPress and apply
+ * the same category from the Categories database in Notion.
+ */
+
 const _ = require('lodash');
 const { BASE_URL, getPageBy, log, getWordPressPost, notion, wp, yargs } = require('./shared');
 const { fetchAllPages, performWithAll } = require('../../../shared/fetch-pages');

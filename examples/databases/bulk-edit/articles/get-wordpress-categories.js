@@ -1,3 +1,7 @@
+/**
+ * Example fetching all WordPress categories via API.
+ */
+
 const { log, wp } = require('./shared');
 
 (async () => {

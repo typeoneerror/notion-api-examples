@@ -1,3 +1,7 @@
+/**
+ * Fetching a WordPress post via API.
+ */
+
 const { wp, yargs } = require('./shared');
 
 const slug = 'building-an-urban-farming-business-the-setup-and-numbers';
