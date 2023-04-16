@@ -15,7 +15,7 @@ const dateProperty = argv.dateProperty || process.env.OURA_JOURNAL_DATE_PROP || 
 const namePrefix = argv.namePrefix || process.env.OURA_JOURNAL_NAME_PREFIX || 'Journal: ';
 
 // Date formats
-const dateTitleFormat = argv.dateTitleFormat || process.env.DATE_TITLE_FORMAT || 'MMM d, yyyy';
+const dateTitleFormat = argv.dateTitleFormat || process.env.OURA_DATE_TITLE_FORMAT || 'MMM d, yyyy';
 const dateIsoFormat = 'yyyy-MM-dd';
 
 // Use date-fns to format our dates. Intl API is a nightmare.
