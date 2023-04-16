@@ -1,5 +1,34 @@
+const { addDays, parseISO } = require('date-fns');
 const { formatInTimeZone } = require('date-fns-tz');
 const { notion, oura, yargs } = require('./oura');
+
+const argv = yargs.argv;
+
+// ID of our Journal database
+const databaseId = argv.databaseId || process.env.OURA_JOURNAL_DATABASE_ID;
+
+// Property for lookups and creation
+const nameProperty = argv.nameProperty || process.env.OURA_JOURNAL_NAME_PROP || 'Name';
+const dateProperty = argv.dateProperty || process.env.OURA_JOURNAL_DATE_PROP || 'Date';
+
+// Prefix entries when creating journal
+const namePrefix = argv.namePrefix || process.env.OURA_JOURNAL_NAME_PREFIX || 'Journal: ';
+
+// Date formats
+const dateTitleFormat = argv.dateTitleFormat || process.env.DATE_TITLE_FORMAT || 'MMM d, yyyy';
+const dateIsoFormat = 'yyyy-MM-dd';
+
+// Use date-fns to format our dates. Intl API is a nightmare.
+let date = new Date();
+let timeZone = argv.timezone || process.env.OURA_TIMEZONE || 'America/Los_Angeles';
+
+if (argv.date) {
+  date = parseISO(argv.date);
+  timeZone = 'UTC';
+}
+
+const dateTitle = formatInTimeZone(date, timeZone, dateTitleFormat);
+const dateValue = formatInTimeZone(date, timeZone, dateIsoFormat);
 
 /**
  * Finds the most recent day's score for a type (Readiness, Sleep, Activity).
@@ -16,14 +45,18 @@ const { notion, oura, yargs } = require('./oura');
  */
 async function fetchOuraScore(type) {
   // GET https://api.ouraring.com/v2/usercollection/daily_<type>?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD
-  const uri = `usercollection/daily_${type}`;
+
+  const startDate = dateValue;
+  const endDate = formatInTimeZone(addDays(date, 1), timeZone, dateIsoFormat);
+
+  const uri = `usercollection/daily_${type}?start_date=${startDate}&end_date=${endDate}`;
 
   const {
     data: { data: entries },
   } = await oura.get(uri);
 
   if (entries.length) {
-    return Number(entries.slice(-1)[0].score);
+    return Number(entries[0].score);
   }
 }
 
@@ -39,25 +72,6 @@ async function fetchOuraScores() {
 }
 
 async function fetchOrCreateJournal() {
-  // Allow command line args
-  const argv = yargs.argv;
-
-  // ID of our Journal database
-  const databaseId = argv.databaseId || process.env.OURA_JOURNAL_DATABASE_ID;
-
-  // Property for lookups and creation
-  const nameProperty = argv.nameProperty || process.env.OURA_JOURNAL_NAME_PROP || 'Name';
-  const dateProperty = argv.dateProperty || process.env.OURA_JOURNAL_DATE_PROP || 'Date';
-
-  // Prefix entries when creating journal
-  const namePrefix = argv.namePrefix || process.env.OURA_JOURNAL_NAME_PREFIX || 'Journal: ';
-
-  // Use date-fns to format our dates. Intl API is a nightmare.
-  const date = new Date();
-  const timeZone = argv.timezone || process.env.OURA_TIMEZONE || 'America/Los_Angeles';
-  const dateTitle = formatInTimeZone(date, timeZone, 'MMM d, yyyy');
-  const dateValue = formatInTimeZone(date, timeZone, 'yyyy-MM-dd');
-
   // Query journal by date
   let {
     results: [today],
