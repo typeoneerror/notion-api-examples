@@ -1,4 +1,4 @@
-const { addDays, parseISO } = require('date-fns');
+const { parseISO, subDays } = require('date-fns');
 const { formatInTimeZone } = require('date-fns-tz');
 const { notion, oura, yargs } = require('./oura');
 
@@ -46,8 +46,8 @@ const dateValue = formatInTimeZone(date, timeZone, dateIsoFormat);
 async function fetchOuraScore(type) {
   // GET https://api.ouraring.com/v2/usercollection/daily_<type>?start_date=YYYY-MM-DD&end_date=YYYY-MM-DD
 
-  const startDate = dateValue;
-  const endDate = formatInTimeZone(addDays(date, 1), timeZone, dateIsoFormat);
+  const endDate = dateValue;
+  const startDate = formatInTimeZone(subDays(date, 1), timeZone, dateIsoFormat);
 
   const uri = `usercollection/daily_${type}?start_date=${startDate}&end_date=${endDate}`;
 
@@ -56,7 +56,7 @@ async function fetchOuraScore(type) {
   } = await oura.get(uri);
 
   if (entries.length) {
-    return Number(entries[0].score);
+    return Number(entries.slice(-1)[0].score);
   }
 }
 
