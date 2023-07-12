@@ -39,12 +39,12 @@ async function fetchAllPages(databaseId, query = undefined, limit = rateLimiter)
   return pages;
 }
 
-async function performWithAll(pages, method, limit = rateLimiter) {
+async function performWithAll(pages, method, args = [], limit = rateLimiter) {
   return await Promise.all(
     pages.map(async (page) => {
       await limit();
 
-      return await method(page);
+      return await method.call(null, page, ...args);
     })
   );
 }

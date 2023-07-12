@@ -12,7 +12,7 @@
  */
 
 const { notion, yargs } = require('../../shared');
-const { fetchAllPages, fetchPages, performWithAll } = require('../../shared/fetch-pages');
+const { fetchAllPages, performWithAll } = require('../../shared/fetch-pages');
 
 const databaseId = '9d550c3fe4cf4b4bac9343fba0f4aa56';
 const argv = yargs.default({ databaseId }).argv;

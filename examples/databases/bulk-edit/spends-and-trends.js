@@ -13,7 +13,7 @@
 
 const { format, parse } = require('date-fns');
 const { notion } = require('../../shared');
-const { fetchAllPages, fetchPages, performWithAll } = require('../../shared/fetch-pages');
+const { fetchAllPages, performWithAll } = require('../../shared/fetch-pages');
 const { emoji } = require('../../shared/props');
 
 const spendsDbId = '029a7e3e6b734169a0e973493fc0dbf1';
