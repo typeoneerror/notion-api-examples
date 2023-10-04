@@ -8,8 +8,8 @@
  * --prop-id: ID of the property to fetch
  */
 
-const { notion, yargs } = require('../../shared');
-const { log } = require('../../shared/utils');
+const { notion, yargs } = require('../shared');
+const { log } = require('../shared/utils');
 
 const pageId = 'a2d67b9cb48e4b2aaca6026d8d577dfd';
 const propId = 'uy%7Db';
