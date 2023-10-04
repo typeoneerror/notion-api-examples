@@ -8,6 +8,10 @@ const SCIM_SCHEMA_GROUP = `${SCIM_SCHEMA_BASE}Group`;
 const SCIM_SCHEMA_USER = `${SCIM_SCHEMA_BASE}User`;
 const SCIM_SCHEMA_PATCH_OP = 'urn:ietf:params:scim:api:messages:2.0:PatchOp';
 
+const RED = '\x1b[31m';
+const RESET = '\x1b[0m';
+const RED_COLOR = RED + '%s' + RESET;
+
 dotenv.config();
 
 const auth = yargs.argv.notionScimToken || process.env.NOTION_SCIM_TOKEN;
@@ -20,6 +24,9 @@ const scim = axios.create({
 });
 
 module.exports = {
+  RED,
+  RESET,
+  RED_COLOR,
   SCIM_SCHEMA_GROUP,
   SCIM_SCHEMA_PATCH_OP,
   SCIM_SCHEMA_USER,
