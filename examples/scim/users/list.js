@@ -29,9 +29,10 @@ const argv = yargs.boolean('sort').option('e', { alias: 'email', type: 'string' 
   }
 
   try {
+    let data = await scim.get('Users', { params });
     let {
       data: { Resources: users },
-    } = await scim.get('Users', { params });
+    } = data;
 
     users = _.reduce(
       users,

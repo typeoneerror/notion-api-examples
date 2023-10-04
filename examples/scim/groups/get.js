@@ -7,7 +7,7 @@
 const { scim, yargs } = require('../../shared/scim');
 const { log } = require('../../shared/utils');
 
-const groupId = '3dcd9218-8b1b-45d5-8ee9-860de3511fbd';
+const groupId = '70158620-4985-4b86-b08e-95657b6d2edf';
 const argv = yargs.default({ groupId }).argv;
 
 (async () => {
