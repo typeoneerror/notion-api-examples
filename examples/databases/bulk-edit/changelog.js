@@ -53,5 +53,5 @@ async function editPage(page) {
 (async () => {
   const pages = await fetchAllPages(databaseId);
 
-  performWithAll(pages, editPage);
+  await performWithAll(pages, editPage);
 })();

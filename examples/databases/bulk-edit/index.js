@@ -83,5 +83,5 @@ async function editPage(page) {
     },
   });
 
-  performWithAll(pages, editPage);
+  await performWithAll(pages, editPage);
 })();

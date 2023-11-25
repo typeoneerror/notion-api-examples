@@ -7,6 +7,10 @@ const rateLimiter = RateLimit(1, {
 });
 
 async function fetchPages(databaseId, query = null, startCursor = undefined, pageSize = 100) {
+  if (startCursor) {
+    console.log(`Fetching pages starting at ${startCursor}`);
+  }
+
   let params = {
     database_id: databaseId,
     page_size: pageSize,
