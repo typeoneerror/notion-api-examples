@@ -92,6 +92,17 @@ async function findOrProvisionUser(email) {
   return user;
 }
 
+async function removeMemberFromWorkspace(userId) {
+  try {
+    // DELETE https://api.notion.com/scim/v2/Users/{id}
+    const { status, statusText } = await scim.delete(`Users/${userId}`);
+
+    console.log(`Removed member (${status}): ${statusText} - ${userId}`);
+  } catch ({ response: { status, statusText } }) {
+    console.log(`Failed to remove member (${status}): ${statusText}`);
+  }
+}
+
 async function getCache(fileName) {
   const tmpDir = path.join(__dirname, 'data');
   const cachePath = path.join(tmpDir, `${fileName}.json`);
@@ -128,6 +139,7 @@ module.exports = {
   findMemberByEmail,
   findOrProvisionUser,
   removeMemberFromGroup,
+  removeMemberFromWorkspace,
   getCache,
   setCache,
 };

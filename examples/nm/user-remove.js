@@ -5,7 +5,7 @@
  */
 
 const { scim, yargs } = require('../shared/scim');
-const { findMemberByEmail } = require('./shared');
+const { findMemberByEmail, removeMemberFromWorkspace } = require('./shared');
 
 const argv = yargs
   .option('email', {
@@ -31,13 +31,5 @@ const argv = yargs
     return console.log('Could not find user');
   }
 
-  // DELETE https://api.notion.com/scim/v2/Users/{id}
-
-  try {
-    const { status, statusText } = await scim.delete(`Users/${userId}`);
-
-    console.log(`${status}: ${statusText} - ${userId}`);
-  } catch ({ response: { status, statusText } }) {
-    console.log(`${status}: ${statusText}`);
-  }
+  await removeMemberFromWorkspace(userId);
 })();
