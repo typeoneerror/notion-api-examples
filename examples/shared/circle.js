@@ -3,11 +3,18 @@ const { default: axios } = require('axios');
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 
 const CIRCLE_BASE_URI = 'https://app.circle.so/api/v1/';
+const CIRCLE_COMMUNITY_ID = 493;
+const CIRCLE_SPACE_GROUP_IDS = [
+  18581, // Welcome
+  10249, // Notion Mastery
+  915, // Share
+];
 
 dotenv.config();
 
 const token = yargs.argv.circleToken || process.env.CIRCLE_API_TOKEN;
-const communityId = yargs.argv.communityId || process.env.CIRCLE_COMMUNITY_ID || 493;
+const communityId =
+  yargs.argv.communityId || process.env.CIRCLE_COMMUNITY_ID || CIRCLE_COMMUNITY_ID;
 
 const circle = axios.create({
   baseURL: CIRCLE_BASE_URI,
@@ -25,6 +32,25 @@ async function findCircleMember(email) {
       email,
     },
   });
+
+  if (data.success === false) {
+    return false;
+  }
+
+  return data;
+}
+
+async function addCircleMember(email, name, space_group_ids = CIRCLE_SPACE_GROUP_IDS) {
+  // POST https://app.circle.so/api/v1/community_members
+
+  const params = {
+    community_id: communityId,
+    name,
+    email,
+    space_group_ids,
+  };
+
+  const { data } = await circle.post('community_members', params);
 
   if (data.success === false) {
     return false;
@@ -58,7 +84,10 @@ async function findAndRemoveCircleMember(email) {
 }
 
 module.exports = {
+  CIRCLE_BASE_URI,
+  CIRCLE_COMMUNITY_ID,
   circle,
+  addCircleMember,
   findAndRemoveCircleMember,
   findCircleMember,
   removeCircleMember,
