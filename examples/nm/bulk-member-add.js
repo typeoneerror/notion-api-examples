@@ -1,5 +1,4 @@
 const { RateLimit } = require('async-sema');
-const { RED_COLOR } = require('../shared/scim');
 const { addMemberToGroup, getCache } = require('./shared');
 
 const RPS = 1;

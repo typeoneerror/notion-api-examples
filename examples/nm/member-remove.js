@@ -26,11 +26,12 @@ const argv = yargs
 
 (async () => {
   let userId = argv.userId;
+  let email = argv.email;
 
-  if (!(userId || argv.email)) {
+  if (!(userId || email)) {
     return console.log('Need either a userId or email');
   } else if (argv.email) {
-    const user = await findMemberByEmail(argv.email);
+    const user = await findMemberByEmail(email);
     userId = user.id;
   }
 

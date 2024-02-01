@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const { scim, SCIM_SCHEMA_PATCH_OP, SCIM_SCHEMA_USER } = require('../shared/scim');
+const { RED_COLOR, scim, SCIM_SCHEMA_PATCH_OP, SCIM_SCHEMA_USER } = require('../shared/scim');
 
 async function addMemberToGroup(groupId, userId) {
   // PATCH https://api.notion.com/scim/v2/Groups/{id}
@@ -48,25 +48,43 @@ async function removeMemberFromGroup(groupId, userId) {
 
     console.log(`${status}: ${statusText} - ${userId}`);
   } catch (e) {
-    console.log('Error', e);
+    console.log(RED_COLOR, 'Error', e);
+  }
+}
+
+async function findMember(userId) {
+  try {
+    const { data: user } = await scim.get(`Users/${userId}`);
+
+    return {
+      id: user.id,
+      name: user.name.formatted,
+      email: user.userName,
+    };
+  } catch {
+    return;
   }
 }
 
 async function findMemberByEmail(email) {
   console.log(`Finding member by email <${email}>`);
 
-  let {
-    data: {
-      Resources: [user],
-    },
-  } = await scim.get('Users', {
-    params: {
-      filter: `email eq "${email}"`,
-      count: 1,
-    },
-  });
+  try {
+    let {
+      data: {
+        Resources: [user],
+      },
+    } = await scim.get('Users', {
+      params: {
+        filter: `email eq "${email}"`,
+        count: 1,
+      },
+    });
 
-  return user;
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 async function findOrProvisionUser(email) {
@@ -99,7 +117,7 @@ async function removeMemberFromWorkspace(userId) {
 
     console.log(`Removed member (${status}): ${statusText} - ${userId}`);
   } catch ({ response: { status, statusText } }) {
-    console.log(`Failed to remove member (${status}): ${statusText}`);
+    console.log(RED_COLOR, `Failed to remove member (${status}): ${statusText}`);
   }
 }
 
@@ -136,6 +154,7 @@ async function setCache(fileName, data) {
 
 module.exports = {
   addMemberToGroup,
+  findMember,
   findMemberByEmail,
   findOrProvisionUser,
   removeMemberFromGroup,
