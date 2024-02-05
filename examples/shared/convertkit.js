@@ -3,6 +3,7 @@ const { default: axios } = require('axios');
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 
 const CK_BASE_URI = 'https://api.convertkit.com/v3/';
+const CK_TAG_MEMBERSHIP_EXPIRED = 4461817;
 
 dotenv.config();
 
@@ -35,7 +36,7 @@ async function findConvertkitSubscriber(email) {
   return subscriber;
 }
 
-async function tagConvertkitSubscriber(email, tagId = 4461817) {
+async function addConvertkitTag(email, tagId = CK_TAG_MEMBERSHIP_EXPIRED) {
   const tag = await ck.post(`tags/${tagId}/subscribe`, {
     email,
   });
@@ -43,13 +44,21 @@ async function tagConvertkitSubscriber(email, tagId = 4461817) {
   return tag;
 }
 
-async function findAndTagConvertkitSubscriber(email) {
+async function removeConvertkitTag(email, tagId = CK_TAG_MEMBERSHIP_EXPIRED) {
+  const subscriber = await findConvertkitSubscriber(email);
+
+  if (subscriber) {
+    return await ck.delete(`subscribers/${subscriber.id}/tags/${tagId}`);
+  }
+}
+
+async function findAndTagConvertkitSubscriber(email, tag = CK_TAG_MEMBERSHIP_EXPIRED) {
   const subscriber = await findConvertkitSubscriber(email);
 
   if (subscriber) {
     console.log(`CK: Tagging subscriber <${email}>`);
 
-    await tagConvertkitSubscriber(email);
+    await addConvertkitTag(email, tag);
   } else {
     console.log(`CK: No subscriber for <${email}>`);
   }
@@ -59,5 +68,6 @@ module.exports = {
   ck,
   findAndTagConvertkitSubscriber,
   findConvertkitSubscriber,
-  tagConvertkitSubscriber,
+  addConvertkitTag,
+  removeConvertkitTag,
 };
