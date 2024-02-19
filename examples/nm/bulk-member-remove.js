@@ -1,5 +1,10 @@
 const { RateLimit } = require('async-sema');
-const { findMember, getCache, removeMemberFromWorkspace } = require('./shared');
+const {
+  findMember,
+  getCache,
+  removeMemberFromGroup,
+  removeMemberFromWorkspace,
+} = require('./shared');
 const { notion } = require('../shared');
 const { findAndRemoveCircleMember } = require('../shared/circle');
 const { findAndTagConvertkitSubscriber } = require('../shared/convertkit');
@@ -27,9 +32,13 @@ async function removeMember(user) {
   console.log(`Removing ${memberName} <${email}> (${NMID})`);
 
   const member = await findMember(NMID);
+
   if (member) {
-    await removeMemberFromWorkspace(NMID);
-    // await removeMemberFromGroup('7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', NMID);
+    // Remove entirely...
+    // await removeMemberFromWorkspace(NMID);
+
+    // Remove from Notion Mastery group but keep in workspace
+    await removeMemberFromGroup('7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', NMID);
   } else {
     console.log(RED_COLOR, `Could not find ${memberName} <${email}> (${NMID})`);
   }
