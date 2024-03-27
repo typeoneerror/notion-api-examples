@@ -30,7 +30,6 @@ const { setCache } = require('./shared');
           displayName: group.displayName,
           id: group.id,
           memberCount: group.members.length || 0,
-          index: all.length + 1,
         });
 
         return all;

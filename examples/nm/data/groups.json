@@ -2,49 +2,46 @@
   {
     "displayName": "Admin",
     "id": "a35ee21b-4d22-4082-a33d-2db565a043bd",
-    "memberCount": 3,
-    "index": 8
+    "memberCount": 3
+  },
+  {
+    "displayName": "Content Editors",
+    "id": "3a059829-3a29-4b44-b1c6-d41b0e0cf727",
+    "memberCount": 1
   },
   {
     "displayName": "Contributors",
     "id": "4c179c85-96b1-4dd5-8858-a89ae5acc4ca",
-    "memberCount": 2,
-    "index": 2
+    "memberCount": 2
   },
   {
     "displayName": "Curriculum",
     "id": "28724504-caac-4f4b-975f-e2c4b1907d06",
-    "memberCount": 3,
-    "index": 1
+    "memberCount": 3
   },
   {
     "displayName": "Formula Fundamentals 2.0",
     "id": "70158620-4985-4b86-b08e-95657b6d2edf",
-    "memberCount": 75,
-    "index": 4
+    "memberCount": 85
   },
   {
     "displayName": "Notion Mastery",
     "id": "7d3e5712-a873-43a8-a4b5-2ab138a9e2ea",
-    "memberCount": 559,
-    "index": 5
+    "memberCount": 602
   },
   {
     "displayName": "Notion Mastery Alumni",
     "id": "922f01d5-b5e4-4f13-9be7-411242a2c68b",
-    "memberCount": 1172,
-    "index": 6
+    "memberCount": 1169
   },
   {
     "displayName": "Notion Mastery Membership",
     "id": "9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2",
-    "memberCount": 152,
-    "index": 7
+    "memberCount": 199
   },
   {
     "displayName": "Team",
     "id": "6b4b5525-5248-4bee-9d4a-05d5114b58b9",
-    "memberCount": 4,
-    "index": 3
+    "memberCount": 4
   }
 ]
