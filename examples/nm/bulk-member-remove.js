@@ -10,17 +10,24 @@ const { findAndRemoveCircleMember } = require('../shared/circle');
 const { findAndTagConvertkitSubscriber } = require('../shared/convertkit');
 const { RED_COLOR, yargs } = require('../shared/scim');
 
-const argv = yargs.option('i', {
-  alias: 'id',
-  type: 'string',
-  describe: 'The ID of the Student in the Student database',
-}).argv;
+const argv = yargs
+  .option('i', {
+    alias: 'id',
+    type: 'string',
+    describe: 'The ID of the Student in the Student database',
+  })
+  .option('c', {
+    alias: 'complete',
+    type: 'boolean',
+    describe: 'Totally remove the Student from the NOTION MASTERY workspace?',
+    default: false,
+  }).argv;
 
 const RPS = 1;
 const limit = RateLimit(RPS);
 const DIV = '~~~~~~~~~~';
 
-async function removeMember(user) {
+async function removeMember(user, complete = false) {
   await limit();
 
   const memberName = user['Name'];
@@ -34,11 +41,14 @@ async function removeMember(user) {
   const member = await findMember(NMID);
 
   if (member) {
-    // Remove entirely...
-    // await removeMemberFromWorkspace(NMID);
-
-    // Remove from Notion Mastery group but keep in workspace
-    await removeMemberFromGroup('7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', NMID);
+    if (complete) {
+      // Remove entirely...
+      await removeMemberFromWorkspace(NMID);
+    } else {
+      // Remove from Notion Mastery groups but keep in workspace
+      await removeMemberFromGroup('7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', NMID);
+      await removeMemberFromGroup('9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', NMID);
+    }
   } else {
     console.log(RED_COLOR, `Could not find ${memberName} <${email}> (${NMID})`);
   }
@@ -101,7 +111,7 @@ async function removeMember(user) {
   console.log(DIV);
 
   for (const user of users) {
-    await removeMember(user);
+    await removeMember(user, argv.complete);
     console.log(DIV);
   }
 
