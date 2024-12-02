@@ -1,8 +1,18 @@
 [
   {
+    "displayName": "AW Example Editors",
+    "id": "901fc64c-1167-4a43-8a3c-b906f08858a9",
+    "memberCount": 0
+  },
+  {
     "displayName": "Admin",
     "id": "a35ee21b-4d22-4082-a33d-2db565a043bd",
     "memberCount": 3
+  },
+  {
+    "displayName": "Architecting Workspaces",
+    "id": "0a5337ff-8343-4da6-a285-fe5c48b9660f",
+    "memberCount": 0
   },
   {
     "displayName": "Content Editors",
@@ -22,22 +32,22 @@
   {
     "displayName": "Formula Fundamentals 2.0",
     "id": "70158620-4985-4b86-b08e-95657b6d2edf",
-    "memberCount": 95
+    "memberCount": 110
   },
   {
     "displayName": "Notion Mastery",
     "id": "7d3e5712-a873-43a8-a4b5-2ab138a9e2ea",
-    "memberCount": 565
+    "memberCount": 522
   },
   {
     "displayName": "Notion Mastery Alumni",
     "id": "922f01d5-b5e4-4f13-9be7-411242a2c68b",
-    "memberCount": 1168
+    "memberCount": 1161
   },
   {
     "displayName": "Notion Mastery Membership",
     "id": "9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2",
-    "memberCount": 220
+    "memberCount": 252
   },
   {
     "displayName": "Team",
