@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - create-wordle-game-action
-  schedule:
-    # 08:05 UTC is just after midnight in Pacfic Time
-    - cron: '5 8 * * *'
+  # schedule:
+  #   08:05 UTC is just after midnight in Pacfic Time
+  #   - cron: '5 8 * * *'
 
 jobs:
   deploy:
