@@ -33,6 +33,7 @@ async function fetchFiles(ids) {
     })
   );
 }
+
 (async () => {
   const { results } = await notion.pages.properties.retrieve({
     page_id: argv.pageId,
