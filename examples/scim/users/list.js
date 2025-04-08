@@ -24,7 +24,7 @@ const argv = yargs.boolean('sort').option('e', { alias: 'email', type: 'string' 
   };
 
   if (argv.email) {
-    // SEE: https://ldapwiki.com/wiki/SCIM%20Filtering
+    // SEE: https://ldapwiki.com/wiki/Wiki.jsp?page=SCIM%20Filtering
     params.filter = `email eq "${argv.email}"`;
   }
 
