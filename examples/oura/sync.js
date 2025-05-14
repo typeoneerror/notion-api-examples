@@ -88,16 +88,6 @@ async function fetchOrCreateJournal() {
   // No today? Create it.
   if (!today) {
     const properties = {
-      [nameProperty]: {
-        title: [
-          {
-            type: 'text',
-            text: {
-              content: `${namePrefix}${dateTitle}`,
-            },
-          },
-        ],
-      },
       [dateProperty]: {
         date: {
           start: dateValue,
@@ -149,6 +139,16 @@ async function updateJournal(today, scores) {
   const { readiness, sleep, activity } = scores;
 
   const properties = {
+    [nameProperty]: {
+      title: [
+        {
+          type: 'text',
+          text: {
+            content: `${namePrefix}${dateTitle}`,
+          },
+        },
+      ],
+    },
     Readiness: ouraProperty(readiness),
     Sleep: ouraProperty(sleep),
     Activity: ouraProperty(activity),
