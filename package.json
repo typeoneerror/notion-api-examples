@@ -6,7 +6,7 @@
   "author": "Benjamin Borowski <ben@weareokidoki.com>",
   "license": "MIT",
   "dependencies": {
-    "@notionhq/client": "^2.2.7",
+    "@notionhq/client": "^3.0.1",
     "async-sema": "^3.1.1",
     "axios": "^1.4.0",
     "date-fns": "^2.28.0",
