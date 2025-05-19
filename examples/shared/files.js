@@ -160,11 +160,13 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
   }
 
   try {
+    let file, upload;
+
     if (needsMultiPart) {
       const parts = await splitFile.splitFileBySize(filePath, PART_SIZE);
 
       // Create multi-part upload
-      const file = await createFileUpload({
+      file = await createFileUpload({
         mode: 'multi_part',
         number_of_parts: parts.length,
         filename: fileName,
@@ -173,29 +175,24 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
 
       for (let i = 1; i <= parts.length; i++) {
         const fileStream = fs.createReadStream(parts[i - 1]);
-        const upload = await uploadPart(file.id, fileStream, i);
+        upload = await uploadPart(file.id, fileStream, i);
       }
 
       // Complete the upload
-      const upload = await completeMultiPartUpload(file.id);
+      upload = await completeMultiPartUpload(file.id);
 
       // Clean up temporary files
       for (const part of parts) {
         await fs.promises.unlink(part);
       }
-
-      return { file, upload };
     } else {
       // Single-part upload
       const fileStream = fs.createReadStream(filePath);
-      const file = await createFileUpload();
-      const upload = await uploadPart(file.id, fileStream);
-
-      return {
-        file,
-        upload,
-      };
+      file = await createFileUpload();
+      upload = await uploadPart(file.id, fileStream);
     }
+
+    return { file, upload };
   } catch (error) {
     if (error.response) {
       console.error('Upload error response:', error.response.data);
