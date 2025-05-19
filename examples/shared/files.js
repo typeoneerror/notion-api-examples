@@ -10,6 +10,7 @@ const { log } = require('../shared/utils');
 const NOTION_FILE_UPLOAD_URL = 'https://api.notion.com/v1/file_uploads';
 const PART_SIZE = 10 * 1024 * 1024; // 10MB chunks for multi-part upload
 const SINGLE_PART_LIMIT = 20 * 1024 * 1024; // 20MB limit for single-part upload
+const MAX_PARTS = 1000;
 
 const NOTION_HEADERS = {
   Authorization: `Bearer ${process.env.NOTION_API_TOKEN}`,
@@ -106,14 +107,6 @@ async function getFileSize(filePath) {
   return stats.size;
 }
 
-async function calculateParts(fileSize) {
-  const parts = Math.ceil(fileSize / PART_SIZE);
-  if (parts > 1000) {
-    throw new Error('File is too large. Maximum number of parts is 1000.');
-  }
-  return parts;
-}
-
 async function uploadPart(fileId, partBuffer, partNumber = null) {
   const formData = new FormData();
   formData.append('file', partBuffer);
@@ -164,6 +157,10 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
 
     if (needsMultiPart) {
       const parts = await splitFile.splitFileBySize(filePath, PART_SIZE);
+
+      if (parts.length > MAX_PARTS) {
+        throw new Error(`File is too large. Maximum number of parts is ${MAX_PARTS}.`);
+      }
 
       // Create multi-part upload
       file = await createFileUpload({
