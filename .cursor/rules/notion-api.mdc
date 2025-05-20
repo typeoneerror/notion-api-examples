@@ -1,0 +1,8 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+- This repository contains a series of API examples using Notion's official public JavaScript client found at https://github.com/makenotion/notion-sdk-js.
+- We'll aim to cover most of the endpoints, including some API endpoints that are enterprise only (namely the SCIM API, examples of which are found in examples/scim).
+- You'll use JavaScript and attempt to extract reusable components for accessing the APIs to the folder.
