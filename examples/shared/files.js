@@ -170,11 +170,13 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
     throw new Error(`Unsupported file type: ${fileName}`);
   }
 
-  try {
-    let file, upload;
+  let file,
+    upload,
+    parts = [];
 
+  try {
     if (needsMultiPart) {
-      const parts = await splitFile.splitFileBySize(filePath, PART_SIZE);
+      parts = await splitFile.splitFileBySize(filePath, PART_SIZE);
 
       if (parts.length > MAX_PARTS) {
         throw new Error(`File is too large. Maximum number of parts is ${MAX_PARTS}.`);
@@ -195,11 +197,6 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
 
       // Complete the upload
       upload = await completeMultiPartUpload(file.id);
-
-      // Clean up temporary files
-      for (const part of parts) {
-        await fs.promises.unlink(part);
-      }
     } else {
       // Single-part upload
       const fileStream = fs.createReadStream(filePath);
@@ -214,6 +211,11 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
       throw new Error(`Upload failed with status: ${error.response.status}`);
     }
     throw error;
+  } finally {
+    // Clean up temporary files
+    for (const part of parts) {
+      await fs.promises.unlink(part);
+    }
   }
 }
 
