@@ -90,6 +90,18 @@ async function attachFileToPage(upload, page, name = null, afterBlockId = null) 
   }
 }
 
+async function attachFileAsCover(upload, page) {
+  return await notion.pages.update({
+    page_id: page.id,
+    cover: {
+      type: 'file_upload',
+      file_upload: {
+        id: upload.id,
+      },
+    },
+  });
+}
+
 async function uploadFileAttachment(filePath, page, property = 'File', name = null) {
   const { upload } = await uploadFile(filePath);
   await attachFileToProperty(upload, page, property, name);
@@ -99,6 +111,12 @@ async function uploadFileAttachment(filePath, page, property = 'File', name = nu
 async function uploadFileBlock(filePath, page) {
   const { upload } = await uploadFile(filePath);
   await attachFileToPage(upload, page);
+  return upload;
+}
+
+async function uploadCoverImage(filePath, page) {
+  const { upload } = await uploadFile(filePath);
+  await attachFileAsCover(upload, page);
   return upload;
 }
 
@@ -267,12 +285,14 @@ function getNotionBlockTypeFromFilename(filename) {
 }
 
 module.exports = {
+  attachFileAsCover,
   attachFileToPage,
   attachFileToProperty,
   createFileUpload,
   getContentType,
   getNotionBlockType,
   getNotionBlockTypeFromFilename,
+  uploadCoverImage,
   uploadFile,
   uploadFileAttachment,
   uploadFileBlock,
