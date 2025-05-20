@@ -8,7 +8,7 @@ const { log } = require('../shared/utils');
 const argv = yargs.argv;
 const databaseId = argv.databaseId || process.env.OURA_JOURNAL_DATABASE_ID;
 
-const filePath = path.join(__dirname, 'data/nonsense.mp4');
+const filePath = path.join(__dirname, 'data/example.mp4');
 const properties = titledDate('Uploaded Video');
 
 const params = {
