@@ -13,11 +13,10 @@ const argv = yargs
   .option('groupId', {
     alias: 'g',
     describe: 'The ID of the group to add the User to',
-    default: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea',
   })
   .option('groupKey', {
     alias: 'k',
-    describe: 'Group key (nm or membership)',
+    describe: 'Group key (nm or membership or ff)',
     choices: ['nm', 'membership', 'ff'],
   })
   .option('email', {
