@@ -13,8 +13,12 @@ const argv = yargs
   .option('groupId', {
     alias: 'g',
     describe: 'The ID of the group to add the User to',
-    demand: true,
     default: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea',
+  })
+  .option('groupKey', {
+    alias: 'k',
+    describe: 'Group key (nm or membership)',
+    choices: ['nm', 'membership'],
   })
   .option('email', {
     alias: 'e',
@@ -25,8 +29,16 @@ const argv = yargs
     describe: "User's Notion identifier",
   }).argv;
 
+// Group key to ID hash
+const groupKeyToId = {
+  nm: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', // Notion Mastery
+  membership: '9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', // Notion Mastery Membership
+};
+
 (async () => {
   let userId = argv.userId;
+  const groupKey = argv.groupKey || 'nm';
+  const groupId = argv.groupId || groupKeyToId[groupKey];
 
   if (!(userId || argv.email)) {
     return console.log('Need either a userId or email');
@@ -39,5 +51,5 @@ const argv = yargs
     return console.log('Could not find or provision user');
   }
 
-  await addMemberToGroup(argv.groupId, userId);
+  await addMemberToGroup(groupId, userId);
 })();
