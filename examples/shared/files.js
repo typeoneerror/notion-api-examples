@@ -118,27 +118,20 @@ async function getFileSize(filePath) {
   return stats.size;
 }
 
-async function uploadPart(fileId, partBuffer, partNumber = null) {
-  const formData = new FormData();
-  formData.append('file', partBuffer);
+async function uploadPart(file, blob, partNumber = null) {
+  const params = {
+    file_upload_id: file.id,
+    file: {
+      data: blob,
+      filename: file.filename,
+    },
+  };
 
   if (partNumber) {
-    console.log('uploading part', partNumber);
-    formData.append('part_number', partNumber.toString());
+    params.part_number = partNumber;
   }
 
-  const response = await axios({
-    method: 'POST',
-    url: `${NOTION_FILE_UPLOAD_URL}/${fileId}/send`,
-    data: formData,
-    headers: {
-      ...NOTION_HEADERS,
-      'Content-Type': 'multipart/form-data',
-    },
-    ...(!partNumber && { maxContentLength: SINGLE_PART_LIMIT }),
-  });
-
-  return response.data;
+  return await notion.fileUploads.send(params);
 }
 
 async function completeMultiPartUpload(fileId) {
@@ -156,7 +149,6 @@ async function completeMultiPartUpload(fileId) {
 async function uploadFile(filePath, fileName = path.basename(filePath)) {
   const fileSize = await getFileSize(filePath);
   const needsMultiPart = fileSize > SINGLE_PART_LIMIT;
-
   const contentType = getContentType(fileName);
 
   if (!contentType) {
@@ -184,17 +176,19 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
       });
 
       for (let i = 1; i <= parts.length; i++) {
-        const fileStream = fs.createReadStream(parts[i - 1]);
-        upload = await uploadPart(file.id, fileStream, i);
+        const buffer = await fs.promises.readFile(parts[i - 1]);
+        const blob = new Blob([buffer], { type: contentType });
+        upload = await uploadPart(file, blob, i);
       }
 
       // Complete the upload
       upload = await completeMultiPartUpload(file.id);
     } else {
       // Single-part upload
-      const fileStream = fs.createReadStream(filePath);
+      const buffer = await fs.promises.readFile(filePath);
+      const blob = new Blob([buffer], { type: contentType });
       file = await createFileUpload();
-      upload = await uploadPart(file.id, fileStream);
+      upload = await uploadPart(file, blob);
     }
 
     return { file, upload };
