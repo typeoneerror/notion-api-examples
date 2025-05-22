@@ -25,14 +25,7 @@ const JSON_HEADERS = {
 
 async function createFileUpload(options = { mode: 'single_part' }) {
   try {
-    const response = await axios({
-      method: 'POST',
-      url: NOTION_FILE_UPLOAD_URL,
-      headers: JSON_HEADERS,
-      data: options,
-    });
-
-    return response.data;
+    return await notion.fileUploads.create(options);
   } catch (error) {
     console.error('Error creating file upload:', error);
     throw error;
