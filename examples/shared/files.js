@@ -1,4 +1,3 @@
-const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 const path = require('path');
@@ -134,16 +133,12 @@ async function uploadPart(file, blob, partNumber = null) {
   return await notion.fileUploads.send(params);
 }
 
-async function completeMultiPartUpload(fileId) {
+async function completeMultiPartUpload(file) {
   console.log('completing upload');
 
-  const response = await axios({
-    method: 'POST',
-    url: `${NOTION_FILE_UPLOAD_URL}/${fileId}/complete`,
-    headers: JSON_HEADERS,
+  return await notion.fileUploads.complete({
+    file_upload_id: file.id,
   });
-
-  return response.data;
 }
 
 async function uploadFile(filePath, fileName = path.basename(filePath)) {
@@ -182,7 +177,7 @@ async function uploadFile(filePath, fileName = path.basename(filePath)) {
       }
 
       // Complete the upload
-      upload = await completeMultiPartUpload(file.id);
+      upload = await completeMultiPartUpload(file);
     } else {
       // Single-part upload
       const buffer = await fs.promises.readFile(filePath);
