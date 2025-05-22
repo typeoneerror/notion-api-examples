@@ -127,7 +127,7 @@ async function uploadPart(file, blob, partNumber = null) {
   };
 
   if (partNumber) {
-    params.part_number = partNumber;
+    params.part_number = partNumber.toString();
   }
 
   return await notion.fileUploads.send(params);
