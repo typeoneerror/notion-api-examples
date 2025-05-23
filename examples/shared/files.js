@@ -127,6 +127,8 @@ async function uploadPart(file, blob, partNumber = null) {
   };
 
   if (partNumber) {
+    console.log('uploading part', partNumber);
+    // Minor issue with the API, part_number must be a string
     params.part_number = partNumber.toString();
   }
 
