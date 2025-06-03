@@ -1,0 +1,31 @@
+name: Sync Oura Data
+on:
+  push:
+    branches:
+      - sync-oura-data
+  schedule:
+    # 06:00 UTC is 23:00 Pacific Time
+    - cron: '0 6 * * *'
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/hydrogen
+      - uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies
+        run: npm install
+      - name: Sync Oura data to Notion
+        env:
+          NOTION_API_TOKEN: ${{ secrets.OURA_NOTION_API_TOKEN }}
+          OURA_JOURNAL_DATABASE_ID: ${{ secrets.OURA_JOURNAL_DATABASE_ID }}
+          OURA_RING_TOKEN: ${{ secrets.OURA_RING_TOKEN }}
+        run: |
+          node examples/oura/sync.js
