@@ -2,7 +2,9 @@
  * Change access from one email to another.
  */
 
+const { notion } = require('../shared');
 const { RED_COLOR, yargs } = require('../shared/scim');
+
 const {
   addMemberToGroup,
   findMemberByEmail,
@@ -28,6 +30,8 @@ const argv = yargs
     demand: true,
   }).argv;
 
+const studentsDbId = '9d29ced8e9ba467c84e74fabbbbacc01';
+
 (async () => {
   const { groupId, old: oldEmail, new: newEmail } = argv;
 
@@ -43,6 +47,57 @@ const argv = yargs
     return console.log(RED_COLOR, 'Could not find or provision user');
   }
 
+  // Add new user to group
   await addMemberToGroup(argv.groupId, user.id);
+
+  // Remove old user from workspace
   await removeMemberFromWorkspace(oldMember.id);
+
+  // Fetch the record in the student database by the previous email
+  const {
+    results: [student],
+  } = await notion.databases.query({
+    database_id: studentsDbId,
+    filter: {
+      property: 'Email',
+      email: {
+        equals: oldEmail,
+      },
+    },
+  });
+
+  if (student) {
+    return console.log(RED_COLOR, `No student record by email <${oldEmail}> found`);
+  }
+
+  // Update the emails and NMID in student database
+  await notion.pages.update({
+    page_id: student.id,
+    properties: {
+      Email: {
+        email: newEmail,
+      },
+      'Previous Email': {
+        email: oldEmail,
+      },
+      NMID: {
+        rich_text: [
+          {
+            text: {
+              content: user.id,
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  // Comment on student record noting the change
+  await notion.comments.create({
+    parent: {
+      type: 'page_id',
+      page_id: student.id,
+    },
+    rich_text: [{ text: { content: `${oldEmail} - ${oldMember.id}` } }],
+  });
 })();
