@@ -53,6 +53,16 @@ const studentsDbId = '9d29ced8e9ba467c84e74fabbbbacc01';
   // Remove old user from workspace
   await removeMemberFromWorkspace(oldMember.id);
 
+  // const oldMember = {
+  //   id: '24bd872b-594c-8191-ad2a-0002d5e040a0',
+  //   email: oldEmail,
+  // };
+
+  // const user = {
+  //   id: '245d872b-594c-81e4-afea-00028f30d6ab',
+  //   email: newEmail,
+  // };
+
   // Fetch the record in the student database by the previous email
   const {
     results: [student],
@@ -66,7 +76,7 @@ const studentsDbId = '9d29ced8e9ba467c84e74fabbbbacc01';
     },
   });
 
-  if (student) {
+  if (!student) {
     return console.log(RED_COLOR, `No student record by email <${oldEmail}> found`);
   }
 
