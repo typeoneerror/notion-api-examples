@@ -1,13 +1,13 @@
 /**
  * Arguments:
  *
- * --database-id: ID of the page to fetch
+ * --database-id: ID of the database to fetch
  */
 
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 
-const databaseId = '87a5721f46b146dca5b3bddf414e9f00';
+const databaseId = '1e7abab87ee8457799c1155cf69d502a';
 const argv = yargs.default({ databaseId }).argv;
 
 (async () => {

@@ -1,14 +1,13 @@
-const notionAPI = require('../shared/notion-api');
+const { notion, yargs } = require('../shared');
 const { log } = require('../shared/utils');
 
-(async () => {
-  // Fetch data source from database
-  const { data: database } = await notionAPI.get('/databases/1e7abab87ee8457799c1155cf69d502a');
-  const { data_sources: [data_source] } = database;
+const dataSourceId = 'acce37c4c4ee4b78aa786a944c2577cf';
+const argv = yargs.default({ dataSourceId }).argv;
 
-  // Fetch templates via data source
-  // GET /v1/data_sources/:data_source_id/templates
-  const { data: { templates } } = await notionAPI.get(`/data_sources/${data_source.id}/templates`);
+(async () => {
+  const { templates } = await notion.dataSources.listTemplates({
+    data_source_id: argv.dataSourceId,
+  });
 
   log(templates);
 })();

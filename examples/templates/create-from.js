@@ -1,10 +1,9 @@
-const notionAPI = require('../shared/notion-api');
-const { yargs } = require('../shared');
+const { notion, yargs } = require('../shared');
 const { log } = require('../shared/utils');
 
-const databaseId = '1e7abab87ee8457799c1155cf69d502a';
+const dataSourceId = 'acce37c4c4ee4b78aa786a944c2577cf';
 const template = 'default';
-const argv = yargs.default({ databaseId, template }).argv;
+const argv = yargs.default({ dataSourceId, template }).argv;
 
 (async () => {
   // Existing endpoint POST /v1/pages
@@ -18,8 +17,8 @@ const argv = yargs.default({ databaseId, template }).argv;
 
   const params = {
     parent: {
-      type: 'database_id',
-      database_id: argv.databaseId,
+      type: 'data_source_id',
+      data_source_id: argv.dataSourceId,
     },
     properties: {
       Name: {
@@ -35,7 +34,7 @@ const argv = yargs.default({ databaseId, template }).argv;
     template,
   };
 
-  const { data: page } = await notionAPI.post('/pages', params);
+  const page = await notion.pages.create(params);
 
   log(page);
 })();
