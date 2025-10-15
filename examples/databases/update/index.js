@@ -38,6 +38,7 @@ const params = {
 };
 
 (async () => {
+  // FIXME: use data sources
   const database = await notion.databases.update(params);
 
   log(database);

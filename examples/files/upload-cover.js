@@ -10,10 +10,10 @@ const argv = yargs
     alias: 'p',
     describe: 'The ID of the page to add the cover to',
   })
-  .option('databaseId', {
+  .option('dataSourceId', {
     alias: 'd',
-    describe: 'The ID of the database to create the page in',
-    default: process.env.OURA_JOURNAL_DATABASE_ID,
+    describe: 'The ID of the data source to create the page in',
+    default: process.env.OURA_JOURNAL_DATA_SOURCE_ID,
   }).argv;
 
 const filePath = path.join(__dirname, 'data/example.png');
@@ -25,8 +25,8 @@ const filePath = path.join(__dirname, 'data/example.png');
     // Create a new page
     page = await notion.pages.create({
       parent: {
-        type: 'database_id',
-        database_id: argv.databaseId,
+        type: 'data_source_id',
+        data_source_id: argv.dataSourceId,
       },
       icon: props.emoji('📄'),
       properties: titledDate('Journal'),

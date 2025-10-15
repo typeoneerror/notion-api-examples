@@ -33,6 +33,7 @@ async function createFromTemplate(template, properties) {
   const templateProperties = getTemplateProperties(template.properties);
   properties = _.assign(templateProperties, properties);
 
+  // FIXME: use data sources
   const params = {
     parent: { database_id: template.parent.database_id },
     icon: template.icon,

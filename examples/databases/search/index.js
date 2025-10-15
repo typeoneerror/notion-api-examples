@@ -23,6 +23,7 @@ const argv = yargs.default({
 // that contains the text "Hall". This is a non-exact match, so would find:
 // "Hall of Fame" and "Hall 1 Lighting".
 (async () => {
+  // FIXME: use data sources
   const response = await notion.databases.query({
     database_id: argv.databaseId,
     query: argv.query,

@@ -29,6 +29,7 @@ const params = {
 };
 
 (async () => {
+  // FIXME: use data sources
   const page = await notion.pages.create(params);
 
   log(page);

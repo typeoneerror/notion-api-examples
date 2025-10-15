@@ -6,15 +6,15 @@ const titledDate = require('../shared/titled-date');
 const { log } = require('../shared/utils');
 
 const argv = yargs.argv;
-const databaseId = argv.databaseId || process.env.OURA_JOURNAL_DATABASE_ID;
+const dataSourceId = argv.dataSourceId || process.env.OURA_JOURNAL_DATA_SOURCE_ID;
 
 const filePath = path.join(__dirname, 'data/example.txt');
 const properties = titledDate('Uploaded File');
 
 const params = {
   parent: {
-    type: 'database_id',
-    database_id: databaseId,
+    type: 'data_source',
+    data_source_id: dataSourceId,
   },
   icon: props.emoji('📄'),
   properties,

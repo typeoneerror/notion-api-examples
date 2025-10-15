@@ -45,6 +45,7 @@ const argv = yargs
     },
   };
 
+  // FIXME: use data sources
   database = await notion.databases.update(properties);
 
   log(database.properties[argv.sortProp]);

@@ -14,6 +14,7 @@ const argv = yargs.default({ databaseId }).argv;
 
 const params = {
   parent: {
+    // FIXME: use data sources
     database_id: argv.databaseId,
   },
   icon: {

@@ -30,6 +30,7 @@ const argv = yargs.boolean('watched-by').default({ databaseId, watchedBy: true }
     properties,
   };
 
+  // FIXME: use data sources
   const database = await notion.databases.update(params);
 
   log(database);

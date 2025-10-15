@@ -4,8 +4,8 @@ const { notion, oura, yargs } = require('./oura');
 
 const argv = yargs.argv;
 
-// ID of our Journal database
-const databaseId = argv.databaseId || process.env.OURA_JOURNAL_DATABASE_ID;
+// ID of our Journal data source
+const dataSourceId = argv.dataSourceId || process.env.OURA_JOURNAL_DATA_SOURCE_ID;
 
 // Property for lookups and creation
 const nameProperty = argv.nameProperty || process.env.OURA_JOURNAL_NAME_PROP || 'Name';
@@ -75,8 +75,8 @@ async function fetchOrCreateJournal() {
   // Query journal by date
   let {
     results: [today],
-  } = await notion.databases.query({
-    database_id: databaseId,
+  } = await notion.dataSources.query({
+    data_source_id: dataSourceId,
     filter: {
       property: dateProperty,
       date: {
@@ -98,8 +98,8 @@ async function fetchOrCreateJournal() {
 
     today = await notion.pages.create({
       parent: {
-        type: 'database_id',
-        database_id: databaseId,
+        type: 'data_source_id',
+        data_source_id: dataSourceId,
       },
       icon: {
         type: 'external',
@@ -112,7 +112,7 @@ async function fetchOrCreateJournal() {
   return today;
 }
 
-async function addOuraProperties({ parent: { database_id: databaseId }, properties }) {
+async function addOuraProperties({ parent: { data_source_id: dataSourceId }, properties }) {
   const requiredProps = ['Readiness', 'Sleep', 'Activity'];
   const newProps = requiredProps.reduce((props, prop) => {
     if (!properties.hasOwnProperty(prop)) {
@@ -122,8 +122,8 @@ async function addOuraProperties({ parent: { database_id: databaseId }, properti
   }, {});
 
   if (Object.keys(newProps).length) {
-    await notion.databases.update({
-      database_id: databaseId,
+    await notion.dataSources.update({
+      data_source_id: dataSourceId,
       properties: newProps,
     });
   }

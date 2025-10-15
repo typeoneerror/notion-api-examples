@@ -32,6 +32,7 @@ async function editPage(page) {
   const dateTitle = format(parsed, 'MMM d, yyyy');
   const spendsTitle = `Spends: ${dateTitle}`;
 
+  // FIXME: use data sources
   const {
     results: [spends],
   } = await notion.databases.query({

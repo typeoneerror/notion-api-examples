@@ -26,7 +26,7 @@ const argv = yargs.default({ databaseId, name, type }).argv;
       },
     },
   };
-
+  // FIXME: use data sources
   const database = await notion.databases.update(params);
 
   log(database);

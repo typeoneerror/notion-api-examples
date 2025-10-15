@@ -64,6 +64,7 @@ const studentsDbId = '9d29ced8e9ba467c84e74fabbbbacc01';
   // };
 
   // Fetch the record in the student database by the previous email
+  // FIXME: use data sources
   const {
     results: [student],
   } = await notion.databases.query({
