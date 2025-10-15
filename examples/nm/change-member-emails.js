@@ -30,7 +30,7 @@ const argv = yargs
     demand: true,
   }).argv;
 
-const studentsDbId = '9d29ced8e9ba467c84e74fabbbbacc01';
+const dataSourceId = '527dfb28-a457-4b45-99d3-8ee18497a725';
 
 (async () => {
   const { groupId, old: oldEmail, new: newEmail } = argv;
@@ -64,11 +64,10 @@ const studentsDbId = '9d29ced8e9ba467c84e74fabbbbacc01';
   // };
 
   // Fetch the record in the student database by the previous email
-  // FIXME: use data sources
   const {
     results: [student],
-  } = await notion.databases.query({
-    database_id: studentsDbId,
+  } = await notion.dataSources.query({
+    data_source_id: dataSourceId,
     filter: {
       property: 'Email',
       email: {

@@ -1,4 +1,7 @@
 /**
+ * Note: this uses an older version of the Notion API which used Databases
+ * APIs instead of the newer Data Sources APIs.
+ *
  * Example bulk-edit script. In this script, there are two databases. One is
  * Spends which has a bunch of data for advertising spends in it. The other
  * is Trends, which has a bunch of data for traffic/metrics for websites. There
@@ -32,7 +35,6 @@ async function editPage(page) {
   const dateTitle = format(parsed, 'MMM d, yyyy');
   const spendsTitle = `Spends: ${dateTitle}`;
 
-  // FIXME: use data sources
   const {
     results: [spends],
   } = await notion.databases.query({

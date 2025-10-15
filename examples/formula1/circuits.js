@@ -1,4 +1,3 @@
-// FIXME: Data Sources
 const orderBy = require('lodash/orderBy');
 const { RateLimit } = require('async-sema');
 
@@ -15,6 +14,10 @@ const limit = RateLimit(1, { timeUnit: 2000, uniformDistribution: true });
 async function createCircuitsDatabase() {
   const response = await notion.search({
     query: DB_TITLE,
+    filter: {
+      value: 'data_source',
+      property: 'object',
+    },
   });
 
   if (response.results.length) {
@@ -57,7 +60,7 @@ async function fetchCircuits() {
   return orderBy(circuits, 'circuitName', 'desc');
 }
 
-async function createCircuit(database, circuit) {
+async function createCircuit(dataSource, circuit) {
   process.stdout.write('.');
 
   const {
@@ -76,7 +79,7 @@ async function createCircuit(database, circuit) {
 
   return await notion.pages.create({
     parent: {
-      database_id: database.id,
+      data_source_id: dataSource.id,
     },
     properties,
   });
@@ -85,10 +88,12 @@ async function createCircuit(database, circuit) {
 async function createCircuits(database, circuits) {
   process.stdout.write('Creating circuits...');
 
+  const dataSource = database.data_sources.at(0);
+
   return await Promise.all(
     circuits.map(async (circuit) => {
       await limit();
-      return await createCircuit(database, circuit);
+      return await createCircuit(dataSource, circuit);
     })
   );
 }

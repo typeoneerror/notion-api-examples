@@ -12,13 +12,30 @@ const INVALID_PROP_TYPES = [
   'title',
 ];
 
-function getTemplateProperties(properties, invalid_types = INVALID_PROP_TYPES) {
+const ID_PICKER = (value, type, keys = ['id']) => {
+  return {
+    [type]: value[type].map((object) => _.pick(object, keys)),
+  };
+};
+
+const PROP_TYPE_MUTATIONS = {
+  people: ID_PICKER,
+  relation: ID_PICKER,
+  none: (value) => value,
+};
+
+function getTemplateProperties(
+  properties,
+  invalid_types = INVALID_PROP_TYPES,
+  mutations = PROP_TYPE_MUTATIONS
+) {
   return _.reduce(
     _.pickBy(properties, (prop) => {
       return !invalid_types.includes(prop.type);
     }),
     (props, prop, name) => {
-      props[name] = _.pick(prop, [prop.type]);
+      const mutation = mutations[prop.type] ?? mutations['none'];
+      props[name] = mutation(_.pick(prop, [prop.type]), prop.type);
       return props;
     },
     {}
@@ -33,9 +50,8 @@ async function createFromTemplate(template, properties) {
   const templateProperties = getTemplateProperties(template.properties);
   properties = _.assign(templateProperties, properties);
 
-  // FIXME: use data sources
   const params = {
-    parent: { database_id: template.parent.database_id },
+    parent: { data_source_id: template.parent.data_source_id },
     icon: template.icon,
     properties,
   };

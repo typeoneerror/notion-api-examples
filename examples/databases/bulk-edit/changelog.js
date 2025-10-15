@@ -51,7 +51,9 @@ async function editPage(page) {
 }
 
 (async () => {
-  const pages = await fetchAllPages(databaseId);
+  const database = await notion.databases.retrieve({ database_id: databaseId });
+  const dataSource = database.data_sources.at(0);
+  const pages = await fetchAllPages(dataSource.id);
 
   await performWithAll(pages, editPage);
 })();

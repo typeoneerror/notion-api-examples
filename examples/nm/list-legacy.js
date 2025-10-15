@@ -29,7 +29,11 @@ const rateLimiter = RateLimit(5);
     },
   };
 
-  const students = await fetchAllPages('9d29ced8e9ba467c84e74fabbbbacc01', query, rateLimiter);
+  const database = await notion.databases.retrieve({
+    database_id: '9d29ced8e9ba467c84e74fabbbbacc01',
+  });
+  const dataSource = database.data_sources.at(0);
+  const students = await fetchAllPages(dataSource.id, query, rateLimiter);
 
   await setCache('members-legacy', students);
 

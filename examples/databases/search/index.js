@@ -11,10 +11,10 @@
 const { notion, yargs } = require('../../shared');
 const { log } = require('../../shared/utils');
 
-const databaseId = '7354557becb34d72b6140bb541ac529a';
+const dataSourceId = '668bd2e3-9307-4438-83b5-75b11376e8a3';
 
 const argv = yargs.default({
-  databaseId,
+  dataSourceId,
   query: '',
   pageSize: 100,
 }).argv;
@@ -23,9 +23,8 @@ const argv = yargs.default({
 // that contains the text "Hall". This is a non-exact match, so would find:
 // "Hall of Fame" and "Hall 1 Lighting".
 (async () => {
-  // FIXME: use data sources
-  const response = await notion.databases.query({
-    database_id: argv.databaseId,
+  const response = await notion.dataSources.query({
+    data_source_id: argv.dataSourceId,
     query: argv.query,
     filter: {
       property: 'Task',

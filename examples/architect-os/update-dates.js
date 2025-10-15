@@ -73,8 +73,9 @@ function validDateConfig(part, defaultValue = 1) {
     console.log(`Updating ${dbTitle} dates (${id})...`);
 
     const database = await notion.databases.retrieve({ database_id: id });
+    const dataSource = database.data_sources.at(0);
     const query = filter ? { filter } : null;
-    const pages = await fetchAllPages(id, query);
+    const pages = await fetchAllPages(dataSource.id, query);
 
     const sortedPages = pages.sort((a, b) => {
       return getDate(a, dateProp) - getDate(b, dateProp);

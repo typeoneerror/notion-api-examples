@@ -1,9 +1,9 @@
 /**
- * Create a page inside a database.
+ * Create a page inside a data source.
  *
  * Arguments:
  *
- * --database-id: ID of the database to create in
+ * --data-source-id: ID of the database to create in
  */
 
 const { notion, yargs } = require('../../shared');
@@ -11,8 +11,8 @@ const props = require('../../shared/props');
 const titledDate = require('../../shared/titled-date');
 const { log } = require('../../shared/utils');
 
-const databaseId = '688d410fd0e842a2ad399650d34842ba';
-const argv = yargs.default({ databaseId }).argv;
+const dataSourceId = 'dd25a489-2480-46c8-afa4-d56cf22c04c6';
+const argv = yargs.default({ dataSourceId }).argv;
 
 // The titledDate helper adds a title in the format of "<Prefix>: <MMM DD, YYYY>"
 // and also assigns the "Date" property with the same date. So this will create
@@ -21,15 +21,14 @@ const properties = titledDate('Journal');
 
 const params = {
   parent: {
-    type: 'database_id',
-    database_id: argv.databaseId,
+    type: 'data_source_id',
+    data_source_id: argv.dataSourceId,
   },
   icon: props.emoji('👨‍🚒'),
   properties,
 };
 
 (async () => {
-  // FIXME: use data sources
   const page = await notion.pages.create(params);
 
   log(page);

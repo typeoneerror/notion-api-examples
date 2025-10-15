@@ -1,7 +1,7 @@
 /**
  * Update a database.
  *
- * This example updates a formula, renames the database, and switches an icon.
+ * This example renames the database and switches an icon.
  *
  * Works great when used with the database created with the ../create script!
  *
@@ -34,11 +34,9 @@ const params = {
   database_id: argv.databaseId,
   icon: props.emoji('💽'),
   title: [props.text(argv.title)],
-  properties,
 };
 
 (async () => {
-  // FIXME: use data sources
   const database = await notion.databases.update(params);
 
   log(database);

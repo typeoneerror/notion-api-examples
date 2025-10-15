@@ -6,13 +6,13 @@ const rateLimiter = RateLimit(1, {
   uniformDistribution: true,
 });
 
-async function fetchPages(databaseId, query = null, startCursor = undefined, pageSize = 100) {
+async function fetchPages(dataSourceId, query = null, startCursor = undefined, pageSize = 100) {
   if (startCursor) {
     console.log(`Fetching pages starting at ${startCursor}`);
   }
 
   let params = {
-    database_id: databaseId,
+    data_source_id: dataSourceId,
     page_size: pageSize,
     start_cursor: startCursor,
   };
@@ -21,10 +21,10 @@ async function fetchPages(databaseId, query = null, startCursor = undefined, pag
     params = { ...params, ...query };
   }
 
-  return await notion.databases.query(params);
+  return await notion.dataSources.query(params);
 }
 
-async function fetchAllPages(databaseId, query = undefined, limit = rateLimiter) {
+async function fetchAllPages(dataSourceId, query = undefined, limit = rateLimiter) {
   let pages = [];
   let hasMore = true;
   let startCursor = undefined;
@@ -32,7 +32,7 @@ async function fetchAllPages(databaseId, query = undefined, limit = rateLimiter)
   while (hasMore) {
     await limit();
 
-    const response = await fetchPages(databaseId, query, startCursor);
+    const response = await fetchPages(dataSourceId, query, startCursor);
 
     pages = pages.concat(response.results);
 

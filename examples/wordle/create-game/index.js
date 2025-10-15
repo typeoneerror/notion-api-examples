@@ -1,4 +1,7 @@
 /**
+ * Note: this uses an older version of the Notion API which used Databases
+ * APIs instead of the newer Data Sources APIs.
+ *
  * Creates a Wordle game instance.
  *
  * @see https://mariepoulin.gumroad.com/l/wordle-in-notion

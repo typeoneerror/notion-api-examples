@@ -50,8 +50,10 @@ async function updateStudent(page, users) {
 
 (async () => {
   const users = await getCache('members');
+  const database = await notion.databases.retrieve({ database_id: studentsDbId });
+  const dataSource = database.data_sources.at(0);
 
-  const pages = await fetchAllPages(studentsDbId, {
+  const pages = await fetchAllPages(dataSource.id, {
     filter: {
       and: [
         {

@@ -1,9 +1,9 @@
 /**
- * Add standard "advanced" properties to a database.
+ * Add standard "advanced" properties to a data source.
  *
  * Arguments:
  *
- * --database-id: ID of the property to add the properties to
+ * --data-source-id: ID of the data source to add the properties to
  * --[no-]watched-by: whether to create a "Watched by" Person property
  *                    (default or --watched-by) or not (--no-watched-by)
  */
@@ -11,8 +11,8 @@
 const { notion, yargs } = require('../shared');
 const { log } = require('../shared/utils');
 
-const databaseId = '5bdcff6258b246788536d5c642b2fe55';
-const argv = yargs.boolean('watched-by').default({ databaseId, watchedBy: true }).argv;
+const dataSourceId = 'e50ebeba-8a21-45ef-84b4-d240f31d7428';
+const argv = yargs.boolean('watched-by').default({ dataSourceId, watchedBy: true }).argv;
 
 (async () => {
   let properties = argv.watchedBy ? { 'Watched by': { people: {} } } : {};
@@ -26,12 +26,11 @@ const argv = yargs.boolean('watched-by').default({ databaseId, watchedBy: true }
   };
 
   const params = {
-    database_id: argv.databaseId,
+    data_source_id: argv.dataSourceId,
     properties,
   };
 
-  // FIXME: use data sources
-  const database = await notion.databases.update(params);
+  const database = await notion.dataSources.update(params);
 
   log(database);
 })();

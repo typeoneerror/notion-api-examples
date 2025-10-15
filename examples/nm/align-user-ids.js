@@ -48,7 +48,10 @@ async function updateStudent(page, users) {
   const legacy = data['legacy']['found'];
   const users = nm.concat(legacy);
 
-  const pages = await fetchAllPages(studentsDbId, {
+  const database = await notion.databases.retrieve({ database_id: studentsDbId });
+  const dataSource = database.data_sources.at(0);
+
+  const pages = await fetchAllPages(dataSource.id, {
     filter: {
       and: [
         {
