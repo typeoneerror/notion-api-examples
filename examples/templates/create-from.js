@@ -10,7 +10,6 @@ const argv = yargs.default({ dataSourceId, template }).argv;
   // template[type]=none (default behavior) doesn't use a template
   // template[type]=default uses the default template
   // template[type]=template_id; template[template_id]=... uses the provided template id
-
   const template = !['none', 'default'].includes(argv.template)
     ? { type: 'template_id', template_id: argv.template }
     : { type: argv.template };
