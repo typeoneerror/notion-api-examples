@@ -33,6 +33,7 @@ const groupKeyToId = {
   nm: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', // Notion Mastery
   membership: '9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', // Notion Mastery Membership
   ff: '70158620-4985-4b86-b08e-95657b6d2edf', // Formula Fundamentals 2.0
+  aw: '2ebb373f-3023-4e43-a81d-a62cb3292f06', // Architecting Workspaces
 };
 
 (async () => {

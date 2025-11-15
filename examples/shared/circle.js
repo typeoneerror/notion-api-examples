@@ -3,6 +3,7 @@ const { default: axios } = require('axios');
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 
 const CIRCLE_BASE_URI = 'https://app.circle.so/api/v1/';
+const CIRCLE_BASE_URI_V2 = 'https://app.circle.so/api/admin/v2/';
 const CIRCLE_COMMUNITY_ID = 493;
 const CIRCLE_SPACE_GROUP_IDS = [
   18581, // Welcome
@@ -13,6 +14,7 @@ const CIRCLE_SPACE_GROUP_IDS = [
 dotenv.config();
 
 const token = yargs.argv.circleToken || process.env.CIRCLE_API_TOKEN;
+const tokenV2 = yargs.argv.circleTokenV2 || process.env.CIRCLE_API_TOKEN_V2;
 const communityId =
   yargs.argv.communityId || process.env.CIRCLE_COMMUNITY_ID || CIRCLE_COMMUNITY_ID;
 
@@ -20,6 +22,14 @@ const circle = axios.create({
   baseURL: CIRCLE_BASE_URI,
   headers: {
     Authorization: `Token ${token}`,
+  },
+});
+
+const circleV2 = axios.create({
+  baseURL: CIRCLE_BASE_URI_V2,
+  headers: {
+    Authorization: `Token ${tokenV2}`,
+    'Content-Type': 'application/json',
   },
 });
 
@@ -83,11 +93,24 @@ async function findAndRemoveCircleMember(email) {
   }
 }
 
+async function addToAccessGroup(email, access_group_id = '70021') {
+  const { data } = await circleV2.post(`access_groups/${access_group_id}/community_members`, {
+    email,
+  });
+
+  if (data.success === false) {
+    return false;
+  }
+
+  return data;
+}
+
 module.exports = {
   CIRCLE_BASE_URI,
   CIRCLE_COMMUNITY_ID,
   circle,
   addCircleMember,
+  addToAccessGroup,
   findAndRemoveCircleMember,
   findCircleMember,
   removeCircleMember,

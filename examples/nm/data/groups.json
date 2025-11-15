@@ -1,5 +1,10 @@
 [
   {
+    "displayName": "AW Alpha",
+    "id": "2ebb373f-3023-4e43-a81d-a62cb3292f06",
+    "memberCount": 25
+  },
+  {
     "displayName": "AW Example Editors",
     "id": "901fc64c-1167-4a43-8a3c-b906f08858a9",
     "memberCount": 0
@@ -12,7 +17,7 @@
   {
     "displayName": "Architecting Workspaces",
     "id": "0a5337ff-8343-4da6-a285-fe5c48b9660f",
-    "memberCount": 0
+    "memberCount": 1
   },
   {
     "displayName": "Content Editors",
@@ -32,26 +37,41 @@
   {
     "displayName": "Formula Fundamentals 2.0",
     "id": "70158620-4985-4b86-b08e-95657b6d2edf",
-    "memberCount": 117
+    "memberCount": 123
+  },
+  {
+    "displayName": "Managers",
+    "id": "8f01b40a-b3ec-41e4-8b27-f01ab29f77ae",
+    "memberCount": 1
   },
   {
     "displayName": "Notion Mastery",
     "id": "7d3e5712-a873-43a8-a4b5-2ab138a9e2ea",
-    "memberCount": 522
+    "memberCount": 485
   },
   {
     "displayName": "Notion Mastery Alumni",
     "id": "922f01d5-b5e4-4f13-9be7-411242a2c68b",
-    "memberCount": 1160
+    "memberCount": 1155
   },
   {
     "displayName": "Notion Mastery Membership",
     "id": "9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2",
-    "memberCount": 289
+    "memberCount": 256
   },
   {
     "displayName": "Team",
     "id": "6b4b5525-5248-4bee-9d4a-05d5114b58b9",
     "memberCount": 4
+  },
+  {
+    "displayName": "Vendor Editors",
+    "id": "6f01ed99-c859-4022-b852-0295b1ca217d",
+    "memberCount": 0
+  },
+  {
+    "displayName": "Vendor Management",
+    "id": "ae45a99e-bbf9-4b99-bcab-1a644c854e23",
+    "memberCount": 2
   }
 ]
