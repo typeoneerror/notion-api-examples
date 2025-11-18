@@ -1,9 +1,8 @@
-
 const { default: axios } = require('axios');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const NOTION_VERSION = '2025-09-03'
+const NOTION_VERSION = '2025-09-03';
 
 const NOTION_HEADERS = {
   Authorization: `Bearer ${process.env.NOTION_API_TOKEN}`,
