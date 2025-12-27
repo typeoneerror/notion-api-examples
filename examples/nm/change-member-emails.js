@@ -53,16 +53,6 @@ const dataSourceId = '527dfb28-a457-4b45-99d3-8ee18497a725';
   // Remove old user from workspace
   await removeMemberFromWorkspace(oldMember.id);
 
-  // const oldMember = {
-  //   id: '24bd872b-594c-8191-ad2a-0002d5e040a0',
-  //   email: oldEmail,
-  // };
-
-  // const user = {
-  //   id: '245d872b-594c-81e4-afea-00028f30d6ab',
-  //   email: newEmail,
-  // };
-
   // Fetch the record in the student database by the previous email
   const {
     results: [student],
