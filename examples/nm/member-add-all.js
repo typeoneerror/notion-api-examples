@@ -18,10 +18,15 @@ const argv = yargs
   .option('email', {
     alias: 'e',
     describe: "User's email address",
+  })
+  .option('circle', {
+    alias: 'c',
+    describe: "User's Circle email address (if different from email)",
   }).argv;
 
 (async () => {
   const email = argv.email;
+  const circleEmail = argv.circle || email;
 
   // Add to Notion as Member
   const user = await findOrProvisionUser(email);
@@ -34,21 +39,22 @@ const argv = yargs
   await addMemberToGroup(argv.groupId, user.id);
 
   // Invite to Circle
-  let circleMember = await findCircleMember(email);
+  let circleMember = await findCircleMember(circleEmail);
 
   if (!circleMember) {
     const {
       name: { formatted: name },
     } = user;
 
-    console.log(`Adding ${name} <${email}> to Circle`);
+    console.log(`Adding ${name} <${circleEmail}> to Circle`);
 
-    circleMember = await addCircleMember(email, name);
+    circleMember = await addCircleMember(circleEmail, name);
 
     if (!circleMember) {
-      console.log(RED_COLOR, `Could not add <${email}> to Circle`);
+      console.log(RED_COLOR, `Could not add <${circleEmail}> to Circle`);
     }
   }
 
   removeConvertkitTag(email);
+  removeConvertkitTag(circleEmail);
 })();
