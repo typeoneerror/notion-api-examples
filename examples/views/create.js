@@ -19,34 +19,40 @@ const argv = yargs
   })
   .option('databaseId', {
     alias: 'b',
-    default: dataSourceId,
+    default: databaseId,
   }).argv;
 
 (async () => {
   const params = {
     data_source_id: argv.dataSourceId,
     name: 'My New View',
-    type: 'list',
-    // TODO: implement when this endpoint is fixed
-    // filter: {
-    // },
-    // sorts: [
-    //   {
-    //     property: 'Date',
-    //     direction: 'ascending',
-    //   },
-    // ],
-    // configuration: {
-    //   type: 'list',
-    //   properties: [
-    //     {
-    //       property_id: 'Status',
-    //       visible: true,
-    //       status_show_as: 'checkbox',
-    //       width: 0,
-    //     },
-    //   ],
-    // },
+    type: 'table',
+    position: {
+      type: 'start',
+    },
+    sorts: [
+      {
+        property: 'Date',
+        direction: 'ascending',
+      },
+    ],
+    configuration: {
+      type: 'table',
+      // TODO: this is not working
+      properties: [
+        {
+          property_id: '%7DUlu',
+          visible: true,
+          status_show_as: 'checkbox',
+          width: 0,
+        },
+        {
+          property_id: 'k%5CSg',
+          visible: true,
+        },
+      ],
+      subtasks: null,
+    },
   };
 
   // Add database_id if provided for top-level views
