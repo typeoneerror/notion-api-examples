@@ -4,7 +4,8 @@
 
 - data-sources API returns property IDs with encoded URI components
 - creating a view with limited properties shows all properties
-- quick_filters are null in retrieve API
+- `quick_filters` are null in retrieve API
+- `total_count` in `notion.views.queries` always 0
 
 ## Features
 
