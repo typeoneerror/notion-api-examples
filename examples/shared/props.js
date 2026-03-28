@@ -7,7 +7,7 @@ function date(start = new Date(), end = null, time_zone = null) {
   };
 
   if (end) {
-    date.end = date;
+    date.end = end;
   }
 
   return { date };
