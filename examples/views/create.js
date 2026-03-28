@@ -1,4 +1,7 @@
 /**
+ * Creates a new table view for a data source with custom properties,
+ * filters, sorts, and grouping configuration.
+ *
  * Arguments:
  *
  * --data-source-id, -d: ID of the data source to create a view for

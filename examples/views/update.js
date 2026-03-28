@@ -1,4 +1,6 @@
 /**
+ * Updates a view's name, sorts, and grouping configuration.
+ *
  * Arguments:
  *
  * --view-id: ID of the view to update

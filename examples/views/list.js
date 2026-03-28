@@ -1,4 +1,6 @@
 /**
+ * Lists all views for a specified database.
+ *
  * Arguments:
  *
  * --database-id: ID of the database to list views of

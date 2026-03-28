@@ -1,4 +1,6 @@
 /**
+ * Deletes a specified view by its ID.
+ *
  * Arguments:
  *
  * --view-id: ID of the view to delete
