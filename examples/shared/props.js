@@ -111,11 +111,39 @@ function omitProps(properties, keys = 'id') {
   return omit(properties);
 }
 
+/**
+ * Merge property configurations for views.
+ * Takes all properties from a data source and merges them with custom
+ * property configurations, maintaining the order of customProps.
+ *
+ * @param {Object} properties - Properties object from data source
+ * @param {Array} customProps - Array of custom property configurations
+ * @returns {Array} Merged array with customProps first, then remaining properties
+ */
+function mergeViewProperties(properties, customProps = []) {
+  // Convert all properties to view property format with visible: false
+  const allProps = Object.values(properties).map((prop) => ({
+    property_id: decodeURIComponent(prop.id),
+    visible: false,
+  }));
+
+  // Start with customProps to maintain their order, then add remaining props
+  const propsMap = new Map(customProps.map((p) => [p.property_id, p]));
+  allProps.forEach((p) => {
+    if (!propsMap.has(p.property_id)) {
+      propsMap.set(p.property_id, p);
+    }
+  });
+
+  return Array.from(propsMap.values());
+}
+
 module.exports = {
   date,
   emoji,
   getPropertySchema,
   icon,
+  mergeViewProperties,
   number,
   pageTitle,
   richText,

@@ -4,11 +4,10 @@
  * --database-id: ID of the database to list views of
  */
 
-const notionAPI = require('../shared/notion-api');
+const { notion, yargs } = require('../shared');
 const { log } = require('../shared/utils');
-const { yargs } = require('../shared');
 
-const databaseId = '3101c1cce3f380b2afa2dd5e35566bd2';
+const databaseId = 'a48377a8442142f19d7ef89211fce07d';
 
 const argv = yargs.option('databaseId', {
   alias: 'd',
@@ -16,8 +15,8 @@ const argv = yargs.option('databaseId', {
 }).argv;
 
 (async () => {
-  const { data: views } = await notionAPI.get('/views', {
-    params: { database_id: argv.databaseId },
+  const views = await notion.views.list({
+    database_id: argv.databaseId,
   });
 
   log(views);

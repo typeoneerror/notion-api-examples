@@ -4,20 +4,20 @@
  * --view-id: ID of the view to update
  */
 
-const notionAPI = require('../shared/notion-api');
+const { notion, yargs } = require('../shared');
 const { log } = require('../shared/utils');
-const { yargs } = require('../shared');
 
-const viewId = '3101c1cce3f3804d8481000c37e852fa';
+const viewId = 'e40b1aba33a04d0095731e38f7f41c4f';
 
-const argv = yargs.option('v', {
-  alias: 'viewId',
-  default: view,
+const argv = yargs.option('viewId', {
+  alias: 'v',
+  default: viewId,
 }).argv;
 
 (async () => {
-  const { data: view } = await notionAPI.patch(`/views/${argv.viewId}`, {
-    name: 'Todo',
+  const view = await notion.views.update({
+    view_id: argv.viewId,
+    name: 'Updated View',
     sorts: [
       {
         property: 'Date',
@@ -26,12 +26,13 @@ const argv = yargs.option('v', {
     ],
     configuration: {
       type: 'table',
-      // TODO: group_by person not implemented?
-      // group_by: {
-      //   type: 'person',
-      //   id: '%3Cji~',
-      //   sort: 'ascending',
-      // },
+      group_by: {
+        type: 'person',
+        property_id: '<ji~',
+        sort: {
+          type: 'ascending',
+        },
+      },
     },
   });
 

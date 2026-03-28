@@ -5,12 +5,12 @@
  * --database-id, -b: ID of the database to create a top-level view in (optional)
  */
 
-const notionAPI = require('../shared/notion-api');
+const { notion, yargs } = require('../shared');
+const { mergeViewProperties } = require('../shared/props');
 const { log } = require('../shared/utils');
-const { yargs } = require('../shared');
 
-const dataSourceId = '45808fcd-2698-412a-97df-10e19c36cc21';
-const databaseId = '3101c1cce3f380b2afa2dd5e35566bd2';
+const dataSourceId = '45808fcd2698412a97df10e19c36cc21';
+const databaseId = 'a48377a8442142f19d7ef89211fce07d';
 
 const argv = yargs
   .option('dataSourceId', {
@@ -23,12 +23,69 @@ const argv = yargs
   }).argv;
 
 (async () => {
+  let { properties } = await notion.dataSources.retrieve({
+    data_source_id: argv.dataSourceId,
+  });
+
+  const customProps = [
+    {
+      property_id: '}Ulu',
+      visible: true,
+      status_show_as: 'checkbox',
+      width: 32,
+    },
+    {
+      property_id: '~IY^',
+      visible: true,
+      width: 32,
+    },
+    {
+      property_id: 'title',
+      visible: true,
+      wrap: true,
+    },
+    {
+      property_id: 'k\\Sg',
+      visible: true,
+    },
+    {
+      property_id: '4]f9',
+      visible: true,
+      width: 300,
+    },
+  ];
+
+  properties = mergeViewProperties(properties, customProps);
+
   const params = {
     data_source_id: argv.dataSourceId,
     name: 'My New View',
     type: 'table',
     position: {
       type: 'start',
+    },
+    filter: {
+      // FIXME: ME?
+      and: [
+        {
+          property: '}Ulu',
+          status: {
+            does_not_equal: 'Done',
+          },
+        },
+      ],
+    },
+    quick_filters: {
+      // FIXME: Today?
+      Date: {
+        date: {
+          this_week: {},
+        },
+      },
+      // FIXME: Me?
+      // Owner: {
+      //   people: { contains: '' },
+      // },
     },
     sorts: [
       {
@@ -38,20 +95,21 @@ const argv = yargs
     ],
     configuration: {
       type: 'table',
-      // TODO: this is not working
-      properties: [
-        {
-          property_id: '%7DUlu',
-          visible: true,
-          status_show_as: 'checkbox',
-          width: 0,
+      properties,
+      group_by: {
+        type: 'relation',
+        property_id: '4]f9',
+        sort: {
+          type: 'ascending',
         },
-        {
-          property_id: 'k%5CSg',
-          visible: true,
-        },
-      ],
-      subtasks: null,
+        hide_empty_groups: true,
+      },
+      subtasks: {
+        display_mode: 'flattened',
+        filter_scope: 'parents_and_subitems',
+        toggle_column_id: 'title',
+      },
+      show_vertical_lines: false,
     },
   };
 
@@ -60,9 +118,7 @@ const argv = yargs
     params.database_id = argv.databaseId;
   }
 
-  // TODO: this is failing, looks like some conflict with the data_source_id and database_id
-  // TODO: test again when issues with UUID fixed
-  const { data: view } = await notionAPI.post('/views', params);
+  const view = await notion.views.create(params);
 
   log(view);
 })();
