@@ -68,27 +68,30 @@ const argv = yargs
       type: 'start',
     },
     filter: {
-      // FIXME: ME?
+      // FIXME: this does not work, creates three separate filter groups
       and: [
         {
-          property: '}Ulu',
+          property: 'Status',
           status: {
             does_not_equal: 'Done',
           },
         },
+        {
+          property: 'Owner',
+          people: { contains: 'me' },
+        },
+        {
+          property: 'Completed by',
+          people: { does_not_contain: 'me' },
+        },
       ],
     },
     quick_filters: {
-      // FIXME: Today?
       Date: {
         date: {
-          this_week: {},
+          on_or_before: 'today',
         },
       },
-      // FIXME: Me?
-      // Owner: {
-      //   people: { contains: '' },
-      // },
     },
     sorts: [
       {
