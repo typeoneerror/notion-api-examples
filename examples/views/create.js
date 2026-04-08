@@ -92,6 +92,10 @@ const argv = yargs
           on_or_before: 'today',
         },
       },
+      // TODO: would be great if you could create blank quick filters
+      // Owner: {
+      //   people: { contains: '' },
+      // },
     },
     sorts: [
       {
