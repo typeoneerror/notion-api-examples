@@ -6,14 +6,17 @@
  */
 
 const { yargs } = require('../shared/scim');
-const { findMemberByEmail, removeMemberFromGroup } = require('./shared');
+const { findMemberByEmail, removeMemberFromGroup, groupKeyToId } = require('./shared');
 
 const argv = yargs
   .option('groupId', {
     alias: 'g',
     describe: 'The ID of the group to remove the User from',
-    demand: true,
-    default: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea',
+  })
+  .option('groupKey', {
+    alias: 'k',
+    describe: 'Group key (nm or membership or ff or alum)',
+    choices: ['nm', 'membership', 'ff', 'alum'],
   })
   .option('email', {
     alias: 'e',
@@ -27,6 +30,8 @@ const argv = yargs
 (async () => {
   let userId = argv.userId;
   let email = argv.email;
+  const groupKey = argv.groupKey || 'nm';
+  const groupId = argv.groupId || groupKeyToId[groupKey];
 
   if (!(userId || email)) {
     return console.log('Need either a userId or email');
@@ -39,5 +44,5 @@ const argv = yargs
     return console.log('Could not find user');
   }
 
-  await removeMemberFromGroup(argv.groupId, userId);
+  await removeMemberFromGroup(groupId, userId);
 })();

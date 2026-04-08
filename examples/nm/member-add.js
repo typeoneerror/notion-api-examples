@@ -7,7 +7,7 @@
  */
 
 const { yargs } = require('../shared/scim');
-const { addMemberToGroup, findOrProvisionUser } = require('./shared');
+const { addMemberToGroup, findOrProvisionUser, groupKeyToId } = require('./shared');
 
 const argv = yargs
   .option('groupId', {
@@ -27,15 +27,6 @@ const argv = yargs
     alias: 'u',
     describe: "User's Notion identifier",
   }).argv;
-
-// Group key to ID hash
-const groupKeyToId = {
-  nm: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', // Notion Mastery
-  membership: '9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', // Notion Mastery Membership
-  ff: '70158620-4985-4b86-b08e-95657b6d2edf', // Formula Fundamentals 2.0
-  aw: '2ebb373f-3023-4e43-a81d-a62cb3292f06', // Architecting Workspaces
-  alum: '922f01d5-b5e4-4f13-9be7-411242a2c68b', // Notion Mastery Alumni
-};
 
 (async () => {
   let userId = argv.userId;
