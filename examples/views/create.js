@@ -9,7 +9,6 @@
  */
 
 const { notion, yargs } = require('../shared');
-const { mergeViewProperties } = require('../shared/props');
 const { log } = require('../shared/utils');
 
 const dataSourceId = '45808fcd2698412a97df10e19c36cc21';
@@ -26,11 +25,7 @@ const argv = yargs
   }).argv;
 
 (async () => {
-  let { properties } = await notion.dataSources.retrieve({
-    data_source_id: argv.dataSourceId,
-  });
-
-  const customProps = [
+  const properties = [
     {
       property_id: '}Ulu',
       visible: true,
@@ -58,8 +53,6 @@ const argv = yargs
     },
   ];
 
-  properties = mergeViewProperties(properties, customProps);
-
   const params = {
     data_source_id: argv.dataSourceId,
     name: 'My New View',
@@ -70,10 +63,17 @@ const argv = yargs
     filter: {
       // FIXME: this does not work, creates three separate filter groups
       and: [
+        // TODO: it'd be great if list filters supported arrays!
         {
           property: 'Status',
           status: {
             does_not_equal: 'Done',
+          },
+        },
+        {
+          property: 'Status',
+          status: {
+            does_not_equal: 'Archive',
           },
         },
         {
