@@ -93,6 +93,7 @@ async function findAndRemoveCircleMember(email) {
   }
 }
 
+// NOTE: 70021 is Architecting Workspaces access group
 async function addToAccessGroup(email, access_group_id = '70021') {
   const { data } = await circleV2.post(`access_groups/${access_group_id}/community_members`, {
     email,

@@ -16,8 +16,8 @@ const argv = yargs
   })
   .option('groupKey', {
     alias: 'k',
-    describe: 'Group key (nm or membership or ff)',
-    choices: ['nm', 'membership', 'ff'],
+    describe: 'Group key (nm or membership or ff or alum)',
+    choices: ['nm', 'membership', 'ff', 'alum'],
   })
   .option('email', {
     alias: 'e',
@@ -34,6 +34,7 @@ const groupKeyToId = {
   membership: '9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', // Notion Mastery Membership
   ff: '70158620-4985-4b86-b08e-95657b6d2edf', // Formula Fundamentals 2.0
   aw: '2ebb373f-3023-4e43-a81d-a62cb3292f06', // Architecting Workspaces
+  alum: '922f01d5-b5e4-4f13-9be7-411242a2c68b', // Notion Mastery Alumni
 };
 
 (async () => {

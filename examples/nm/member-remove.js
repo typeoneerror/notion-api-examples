@@ -11,7 +11,7 @@ const { findMemberByEmail, removeMemberFromGroup } = require('./shared');
 const argv = yargs
   .option('groupId', {
     alias: 'g',
-    describe: 'The ID of the group to add the User to',
+    describe: 'The ID of the group to remove the User from',
     demand: true,
     default: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea',
   })
