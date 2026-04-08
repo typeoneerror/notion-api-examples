@@ -49,7 +49,7 @@ const argv = yargs.boolean('sort').default({
 
         return all;
       },
-      []
+      [],
     );
 
     // Order by name if desired
