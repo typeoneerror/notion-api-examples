@@ -9,6 +9,8 @@
 const { yargs } = require('../shared/scim');
 const { addMemberToGroup, findOrProvisionUser, groupKeyToId } = require('./shared');
 
+const groupKeys = Object.keys(groupKeyToId);
+
 const argv = yargs
   .option('groupId', {
     alias: 'g',
@@ -16,8 +18,8 @@ const argv = yargs
   })
   .option('groupKey', {
     alias: 'k',
-    describe: 'Group key (nm or membership or ff or alum)',
-    choices: ['nm', 'membership', 'ff', 'alum'],
+    describe: `Group key (${groupKeys.join(' or ')})`,
+    choices: groupKeys,
   })
   .option('email', {
     alias: 'e',
