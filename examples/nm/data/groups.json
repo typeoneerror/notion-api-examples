@@ -1,77 +1,62 @@
 [
   {
     "displayName": "AW Alpha",
-    "id": "2ebb373f-3023-4e43-a81d-a62cb3292f06",
-    "memberCount": 81
+    "id": "2ebb373f-3023-4e43-a81d-a62cb3292f06"
   },
   {
     "displayName": "AW Example Editors",
-    "id": "901fc64c-1167-4a43-8a3c-b906f08858a9",
-    "memberCount": 0
+    "id": "901fc64c-1167-4a43-8a3c-b906f08858a9"
   },
   {
     "displayName": "Admin",
-    "id": "a35ee21b-4d22-4082-a33d-2db565a043bd",
-    "memberCount": 3
+    "id": "a35ee21b-4d22-4082-a33d-2db565a043bd"
   },
   {
     "displayName": "Architecting Workspaces",
-    "id": "0a5337ff-8343-4da6-a285-fe5c48b9660f",
-    "memberCount": 0
+    "id": "0a5337ff-8343-4da6-a285-fe5c48b9660f"
   },
   {
     "displayName": "Content Editors",
-    "id": "3a059829-3a29-4b44-b1c6-d41b0e0cf727",
-    "memberCount": 1
+    "id": "3a059829-3a29-4b44-b1c6-d41b0e0cf727"
   },
   {
     "displayName": "Contributors",
-    "id": "4c179c85-96b1-4dd5-8858-a89ae5acc4ca",
-    "memberCount": 1
+    "id": "4c179c85-96b1-4dd5-8858-a89ae5acc4ca"
   },
   {
     "displayName": "Curriculum",
-    "id": "28724504-caac-4f4b-975f-e2c4b1907d06",
-    "memberCount": 3
+    "id": "28724504-caac-4f4b-975f-e2c4b1907d06"
   },
   {
     "displayName": "Formula Fundamentals 2.0",
-    "id": "70158620-4985-4b86-b08e-95657b6d2edf",
-    "memberCount": 125
+    "id": "70158620-4985-4b86-b08e-95657b6d2edf"
   },
   {
     "displayName": "Managers",
-    "id": "8f01b40a-b3ec-41e4-8b27-f01ab29f77ae",
-    "memberCount": 1
+    "id": "8f01b40a-b3ec-41e4-8b27-f01ab29f77ae"
   },
   {
     "displayName": "Notion Mastery",
-    "id": "7d3e5712-a873-43a8-a4b5-2ab138a9e2ea",
-    "memberCount": 445
+    "id": "7d3e5712-a873-43a8-a4b5-2ab138a9e2ea"
   },
   {
     "displayName": "Notion Mastery Alumni",
-    "id": "922f01d5-b5e4-4f13-9be7-411242a2c68b",
-    "memberCount": 1154
+    "id": "922f01d5-b5e4-4f13-9be7-411242a2c68b"
   },
   {
     "displayName": "Notion Mastery Membership",
-    "id": "9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2",
-    "memberCount": 236
+    "id": "9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2"
   },
   {
     "displayName": "Team",
-    "id": "6b4b5525-5248-4bee-9d4a-05d5114b58b9",
-    "memberCount": 3
+    "id": "6b4b5525-5248-4bee-9d4a-05d5114b58b9"
   },
   {
     "displayName": "Vendor Editors",
-    "id": "6f01ed99-c859-4022-b852-0295b1ca217d",
-    "memberCount": 0
+    "id": "6f01ed99-c859-4022-b852-0295b1ca217d"
   },
   {
     "displayName": "Vendor Management",
-    "id": "ae45a99e-bbf9-4b99-bcab-1a644c854e23",
-    "memberCount": 2
+    "id": "ae45a99e-bbf9-4b99-bcab-1a644c854e23"
   }
 ]

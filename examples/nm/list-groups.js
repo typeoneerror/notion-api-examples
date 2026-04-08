@@ -29,12 +29,11 @@ const { setCache } = require('./shared');
         all.push({
           displayName: group.displayName,
           id: group.id,
-          memberCount: group.members.length || 0,
         });
 
         return all;
       },
-      []
+      [],
     );
 
     groups = _.orderBy(groups, 'displayName');
