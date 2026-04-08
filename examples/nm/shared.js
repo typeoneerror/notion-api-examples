@@ -2,6 +2,15 @@ const path = require('path');
 const fs = require('fs');
 const { RED_COLOR, scim, SCIM_SCHEMA_PATCH_OP, SCIM_SCHEMA_USER } = require('../shared/scim');
 
+// Group key to ID hash
+const groupKeyToId = {
+  nm: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', // Notion Mastery
+  membership: '9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', // Notion Mastery Membership
+  ff: '70158620-4985-4b86-b08e-95657b6d2edf', // Formula Fundamentals 2.0
+  aw: '2ebb373f-3023-4e43-a81d-a62cb3292f06', // Architecting Workspaces
+  alum: '922f01d5-b5e4-4f13-9be7-411242a2c68b', // Notion Mastery Alumni
+};
+
 async function addMemberToGroup(groupId, userId) {
   // PATCH https://api.notion.com/scim/v2/Groups/{id}
 
@@ -157,8 +166,9 @@ module.exports = {
   findMember,
   findMemberByEmail,
   findOrProvisionUser,
+  getCache,
+  groupKeyToId,
   removeMemberFromGroup,
   removeMemberFromWorkspace,
-  getCache,
   setCache,
 };
