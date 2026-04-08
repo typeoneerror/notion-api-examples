@@ -80,6 +80,12 @@ const dataSourceId = '527dfb28-a457-4b45-99d3-8ee18497a725';
       'Previous Email': {
         email: oldEmail,
       },
+      'Circle Email': {
+        email: oldEmail,
+      },
+      'CK Email': {
+        email: oldEmail,
+      },
       NMID: {
         rich_text: [
           {
