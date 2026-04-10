@@ -1,0 +1,25 @@
+/**
+ * Retrieves details of a specific view by its ID.
+ *
+ * Arguments:
+ *
+ * --view-id: ID of the view to retrieve
+ */
+
+const { log } = require('../shared/utils');
+const { notion, yargs } = require('../shared');
+
+const viewId = 'e40b1aba33a04d0095731e38f7f41c4f';
+
+const argv = yargs.option('viewId', {
+  alias: 'v',
+  default: viewId,
+}).argv;
+
+(async () => {
+  const view = await notion.views.retrieve({
+    view_id: argv.viewId,
+  });
+
+  log(view);
+})();
