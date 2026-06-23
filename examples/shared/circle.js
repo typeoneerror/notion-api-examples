@@ -10,6 +10,8 @@ const CIRCLE_SPACE_GROUP_IDS = [
   10249, // Notion Mastery
   915, // Share
 ];
+const CIRCLE_ACCESS_GROUP_AW = '70021';
+const CIRCLE_ACCESS_GROUP_NM = '70022';
 
 dotenv.config();
 
@@ -93,7 +95,7 @@ async function findAndRemoveCircleMember(email) {
   }
 }
 
-async function addToAccessGroup(email, access_group_id = '70021') {
+async function addToAccessGroup(email, access_group_id = CIRCLE_ACCESS_GROUP_NM) {
   const { data } = await circleV2.post(`access_groups/${access_group_id}/community_members`, {
     email,
   });
@@ -106,6 +108,8 @@ async function addToAccessGroup(email, access_group_id = '70021') {
 }
 
 module.exports = {
+  CIRCLE_ACCESS_GROUP_AW,
+  CIRCLE_ACCESS_GROUP_NM,
   CIRCLE_BASE_URI,
   CIRCLE_COMMUNITY_ID,
   circle,

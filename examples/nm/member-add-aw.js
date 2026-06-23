@@ -4,7 +4,7 @@
  */
 
 const { notion } = require('../shared');
-const { findCircleMember, addToAccessGroup } = require('../shared/circle');
+const { findCircleMember, addToAccessGroup, CIRCLE_ACCESS_GROUP_AW } = require('../shared/circle');
 const { yargs, RED_COLOR } = require('../shared/scim');
 const { findMember, addMemberToGroup } = require('./shared');
 
@@ -100,7 +100,7 @@ async function tagStudent(student) {
 
   console.info(`Adding to Circle access group...`);
 
-  await addToAccessGroup(circleMember.email);
+  await addToAccessGroup(circleMember.email, CIRCLE_ACCESS_GROUP_AW);
 
   console.log('Done!');
 })();

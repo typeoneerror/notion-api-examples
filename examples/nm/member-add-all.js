@@ -3,7 +3,7 @@
  */
 
 const { notion } = require('../shared');
-const { addCircleMember, findCircleMember } = require('../shared/circle');
+const { addCircleMember, addToAccessGroup, findCircleMember } = require('../shared/circle');
 const { removeConvertkitTag } = require('../shared/convertkit');
 const { yargs, RED_COLOR } = require('../shared/scim');
 const { addMemberToGroup, findOrProvisionUser } = require('./shared');
@@ -54,6 +54,8 @@ const argv = yargs
       console.log(RED_COLOR, `Could not add <${circleEmail}> to Circle`);
     }
   }
+
+  addToAccessGroup(circleEmail);
 
   removeConvertkitTag(email);
   removeConvertkitTag(circleEmail);
