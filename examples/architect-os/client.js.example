@@ -1,0 +1,10 @@
+const client = {
+  name: 'Name',
+  workspace_id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+  template_id: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  prefix: 'OS',
+  color: 'blue',
+  plan: 'enterprise',
+};
+
+module.exports = client;
