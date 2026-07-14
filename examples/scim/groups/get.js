@@ -6,14 +6,27 @@
 
 const { scim, yargs } = require('../../shared/scim');
 const { log } = require('../../shared/utils');
+const { groupKeyToId } = require('../../nm/shared');
 
-const groupId = '70158620-4985-4b86-b08e-95657b6d2edf';
-const argv = yargs.default({ groupId }).argv;
+const groupKeys = Object.keys(groupKeyToId);
+
+const argv = yargs
+  .option('groupId', {
+    alias: 'g',
+    describe: 'The ID of the group to fetch',
+  })
+  .option('groupKey', {
+    alias: 'k',
+    describe: `Group key (${groupKeys.join(' or ')})`,
+    choices: groupKeys,
+  }).argv;
 
 (async () => {
-  // GET https://api.notion.com/scim/v2/Groups/{id}
+  const groupKey = argv.groupKey || 'nm';
+  const groupId = argv.groupId || groupKeyToId[groupKey];
 
-  const { data: group } = await scim.get(`Groups/${argv.groupId}`);
+  // GET https://api.notion.com/scim/v2/Groups/{id}
+  const { data: group } = await scim.get(`Groups/${groupId}`);
 
   log(group);
 })();
