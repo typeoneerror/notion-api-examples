@@ -1,9 +1,5 @@
 [
   {
-    "displayName": "AW Alpha",
-    "id": "2ebb373f-3023-4e43-a81d-a62cb3292f06"
-  },
-  {
     "displayName": "AW Example Editors",
     "id": "901fc64c-1167-4a43-8a3c-b906f08858a9"
   },
@@ -13,7 +9,7 @@
   },
   {
     "displayName": "Architecting Workspaces",
-    "id": "0a5337ff-8343-4da6-a285-fe5c48b9660f"
+    "id": "2ebb373f-3023-4e43-a81d-a62cb3292f06"
   },
   {
     "displayName": "Content Editors",
