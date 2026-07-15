@@ -8,6 +8,7 @@ const { removeConvertkitTag } = require('../shared/convertkit');
 const { yargs, RED_COLOR } = require('../shared/scim');
 const { addMemberToGroup, findOrProvisionUser } = require('./shared');
 
+// TODO: use group keys here
 const argv = yargs
   .option('groupId', {
     alias: 'g',
@@ -35,7 +36,7 @@ const argv = yargs
     return console.log(RED_COLOR, 'Could not find or provision user in Notion');
   }
 
-  // Add to Notion Group
+  // Add to Notion Mastery Group
   await addMemberToGroup(argv.groupId, user.id);
 
   // Invite to Circle

@@ -36,6 +36,7 @@ async function removeMember(user, complete = false) {
   const NMID = user['NMID'];
   const OKID = user['OKID'];
   const previousEmail = user['Previous Email'];
+  const circleEmail = user['Circle Email'];
 
   console.log(`Removing ${memberName} <${email}> (${NMID})`);
 
@@ -57,7 +58,11 @@ async function removeMember(user, complete = false) {
     console.log(RED_COLOR, `Could not find ${memberName} <${email}> (${NMID})`);
   }
 
+  // Remove from Circle
   await findAndRemoveCircleMember(email);
+  if (circleEmail && circleEmail != email) {
+    await findAndRemoveCircleMember(previousEmail);
+  }
   if (previousEmail && previousEmail != email) {
     await findAndRemoveCircleMember(previousEmail);
   }
