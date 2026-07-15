@@ -8,9 +8,11 @@ const SCIM_SCHEMA_GROUP = `${SCIM_SCHEMA_BASE}Group`;
 const SCIM_SCHEMA_USER = `${SCIM_SCHEMA_BASE}User`;
 const SCIM_SCHEMA_PATCH_OP = 'urn:ietf:params:scim:api:messages:2.0:PatchOp';
 
+const GREEN = '\x1b[32m';
 const RED = '\x1b[31m';
 const RESET = '\x1b[0m';
 const RED_COLOR = RED + '%s' + RESET;
+const GREEN_COLOR = GREEN + '%s' + RESET;
 
 dotenv.config();
 
@@ -24,6 +26,8 @@ const scim = axios.create({
 });
 
 module.exports = {
+  GREEN,
+  GREEN_COLOR,
   RED,
   RESET,
   RED_COLOR,
