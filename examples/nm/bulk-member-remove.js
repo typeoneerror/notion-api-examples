@@ -2,6 +2,7 @@ const { RateLimit } = require('async-sema');
 const {
   findMember,
   getCache,
+  groupKeyToId,
   removeMemberFromGroup,
   removeMemberFromWorkspace,
 } = require('./shared');
@@ -46,11 +47,11 @@ async function removeMember(user, complete = false) {
       await removeMemberFromWorkspace(NMID);
     } else {
       // Remove from Notion Mastery groups but keep in workspace
-      await removeMemberFromGroup('7d3e5712-a873-43a8-a4b5-2ab138a9e2ea', NMID);
+      await removeMemberFromGroup(groupKeyToId.nm, NMID);
       // Notion Mastery Membership
-      await removeMemberFromGroup('9e7b05bc-e9e6-4b7a-8246-f8b1af875ea2', NMID);
+      await removeMemberFromGroup(groupKeyToId.membership, NMID);
       // Architecting Workspaces
-      await removeMemberFromGroup('2ebb373f-3023-4e43-a81d-a62cb3292f06', NMID);
+      await removeMemberFromGroup(groupKeyToId.aw, NMID);
     }
   } else {
     console.log(RED_COLOR, `Could not find ${memberName} <${email}> (${NMID})`);
