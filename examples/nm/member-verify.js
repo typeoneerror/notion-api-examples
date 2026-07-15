@@ -1,11 +1,17 @@
 const { RateLimit } = require('async-sema');
 const { notion } = require('../shared');
+const {
+  findCircleMember,
+  addToAccessGroup,
+  CIRCLE_ACCESS_GROUP_AW,
+  CIRCLE_ACCESS_GROUP_NM,
+} = require('../shared/circle');
 const { GREEN_COLOR, RED_COLOR, scim, yargs, GREEN } = require('../shared/scim');
 const { log } = require('../shared/utils');
-const { groupKeyToId } = require('./shared');
+const { addMemberToGroup, groupKeyToId } = require('./shared');
 
 const DATA_SOURCE_ID = '527dfb28-a457-4b45-99d3-8ee18497a725';
-const RPS = 1;
+const RPS = 2;
 const DIV = '~~~~~~~~~~';
 
 const limit = RateLimit(RPS);
@@ -78,7 +84,6 @@ async function verifyMember(NMID) {
       title: [{ plain_text: name }],
     },
     Email: { email: email },
-    'Circle Email': { email: circleEmail },
     'Active Membership?': {
       formula: { boolean: activeMembership },
     },
@@ -101,7 +106,7 @@ async function verifyMember(NMID) {
 
   if (verified) {
     // console.log(GREEN_COLOR, `Verified ${name} with ID ${NMID}`);
-    return true;
+    return student;
   } else {
     console.log(RED_COLOR, `Could not verify ${name} with ID ${NMID}`);
     console.log({
@@ -118,8 +123,49 @@ async function verifyMember(NMID) {
   }
 }
 
-async function grantMemberAccess(NMID) {
+async function updateCircleEmail(student, circleEmail) {
+  return await notion.pages.update({
+    page_id: student.id,
+    properties: {
+      'Circle Email': {
+        email: circleEmail,
+      },
+    },
+  });
+}
+
+async function grantMemberAccess(student) {
+  await limit();
+
+  let {
+    Email: { email: email },
+    'Circle Email': { email: circleEmail },
+    'Previous Email': { email: oldEmail },
+    NMID: {
+      rich_text: [{ plain_text: NMID }],
+    },
+  } = student.properties;
+
+  // Add to Architecting Workspaces group in Notion
   await addMemberToGroup(groupKeyToId.aw, NMID);
+
+  const emails = [circleEmail, email, oldEmail].filter(Boolean);
+
+  let circleMember = null;
+  for (const circleEmail of emails) {
+    circleMember = await findCircleMember(circleEmail);
+    if (circleMember) {
+      break;
+    }
+  }
+
+  if (!circleMember) {
+    console.log(RED_COLOR, `${NMID} Could not find Circle member <${email}>}`);
+  } else {
+    // Add to Circle access groups
+    await addToAccessGroup(circleMember.email, CIRCLE_ACCESS_GROUP_NM);
+    await addToAccessGroup(circleMember.email, CIRCLE_ACCESS_GROUP_AW);
+  }
 }
 
 (async () => {
@@ -134,6 +180,7 @@ async function grantMemberAccess(NMID) {
     // GET https://api.notion.com/scim/v2/Groups/{id}
     const { data: group } = await scim.get(`Groups/${groupId}`);
     members = group.members;
+    // members = members.slice(300);
   }
 
   console.log(`Verifying ${members.length} members...`);
@@ -149,7 +196,7 @@ async function grantMemberAccess(NMID) {
     if (verified) {
       vc++;
 
-      // grantMemberAccess(NMID);
+      await grantMemberAccess(verified);
     } else {
       fc++;
     }
