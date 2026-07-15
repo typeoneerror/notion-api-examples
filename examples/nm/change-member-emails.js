@@ -9,15 +9,21 @@ const {
   addMemberToGroup,
   findMemberByEmail,
   findOrProvisionUser,
+  groupKeyToId,
   removeMemberFromWorkspace,
 } = require('./shared');
+
+const groupKeys = Object.keys(groupKeyToId);
 
 const argv = yargs
   .option('groupId', {
     alias: 'g',
     describe: 'The ID of the group to add the User to',
-    demand: true,
-    default: '7d3e5712-a873-43a8-a4b5-2ab138a9e2ea',
+  })
+  .option('groupKey', {
+    alias: 'k',
+    describe: `Group key (${groupKeys.join(' or ')})`,
+    choices: groupKeys,
   })
   .option('old', {
     alias: 'o',
@@ -28,12 +34,16 @@ const argv = yargs
     alias: 'n',
     describe: "User's new email address",
     demand: true,
-  }).argv;
+  })
+  .boolean('aw')
+  .default({ aw: true }).argv;
 
 const dataSourceId = '527dfb28-a457-4b45-99d3-8ee18497a725';
 
 (async () => {
-  const { groupId, old: oldEmail, new: newEmail } = argv;
+  const groupKey = argv.groupKey || 'nm';
+  const groupId = argv.groupId || groupKeyToId[groupKey];
+  const { old: oldEmail, new: newEmail, aw: includeAW } = argv;
 
   // Find the old member
   const oldMember = await findMemberByEmail(oldEmail);
@@ -47,8 +57,11 @@ const dataSourceId = '527dfb28-a457-4b45-99d3-8ee18497a725';
     return console.log(RED_COLOR, 'Could not find or provision user');
   }
 
-  // Add new user to group
-  await addMemberToGroup(argv.groupId, user.id);
+  // Add new user to groups
+  await addMemberToGroup(groupId, user.id);
+  if (includeAW) {
+    await addMemberToGroup(groupKeyToId.aw, user.id);
+  }
 
   // Remove old user from workspace
   await removeMemberFromWorkspace(oldMember.id);
