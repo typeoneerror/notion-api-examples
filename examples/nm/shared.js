@@ -111,8 +111,12 @@ async function findOrProvisionUser(email) {
       });
 
       user = data;
-    } catch ({ response: { status } }) {
-      console.log(status);
+    } catch ({
+      response: {
+        data: { status, detail },
+      },
+    }) {
+      console.log(RED_COLOR, `${status}: ${detail}`);
     }
   }
 

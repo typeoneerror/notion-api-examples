@@ -53,7 +53,7 @@ const dataSourceId = '527dfb28-a457-4b45-99d3-8ee18497a725';
 
   // Provision the new member
   const user = await findOrProvisionUser(newEmail);
-  if (!user.id) {
+  if (!user?.id) {
     return console.log(RED_COLOR, 'Could not find or provision user');
   }
 
