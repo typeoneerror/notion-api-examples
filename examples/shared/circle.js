@@ -113,6 +113,7 @@ module.exports = {
   CIRCLE_BASE_URI,
   CIRCLE_COMMUNITY_ID,
   circle,
+  circleV2,
   addCircleMember,
   addToAccessGroup,
   findAndRemoveCircleMember,
